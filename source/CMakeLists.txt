@@ -4,7 +4,10 @@ include(FetchContent)
 
 set(BUILD_SHARED_LIBS ON)
 
-add_library(${PROJECT_NAME} GraphicsRenderer.cpp)
+add_library(${PROJECT_NAME}
+    ../external/include/glad/glad.c
+    GraphicsRenderer.cpp
+)
 
 # GLFW
 set(GLFW_BUILD_EXAMPLES OFF)
@@ -30,7 +33,6 @@ FetchContent_MakeAvailable(
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
     glfw
-    glad
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
