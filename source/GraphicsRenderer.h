@@ -1,6 +1,11 @@
 #ifndef GRAPHICSRENDERER_H
 #define GRAPHICSRENDERER_H
 
-void printHelloWorld();
+namespace gr
+{
+  
+  void printHelloWorld();
+
+}
 
 #endif //GRAPHICSRENDERER_H

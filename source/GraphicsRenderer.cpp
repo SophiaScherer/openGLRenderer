@@ -1,7 +1,12 @@
 #include "GraphicsRenderer.h"
 #include <iostream>
 
-void printHelloWorld()
+namespace gr
 {
-  std::cout << "Hello World!\n";
+
+  void printHelloWorld()
+  {
+    std::cout << "Hello World!\n";
+  }
+
 }
