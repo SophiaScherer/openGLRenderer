@@ -5,11 +5,6 @@
 namespace gr
 {
 
-  void printHelloWorld()
-  {
-    std::cout << "Hello World!\n";
-  }
-
   GraphicsRenderer::GraphicsRenderer()
   {
     if (!glfwInit())
