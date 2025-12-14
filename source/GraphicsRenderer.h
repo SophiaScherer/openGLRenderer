@@ -10,9 +10,9 @@ namespace gr
   class GraphicsRenderer
   {
   public:
-    GraphicsRenderer(int width = 640, int height = 480, const std::string& = "Window!");
+    explicit GraphicsRenderer(int width = 640, int height = 480, std::string  = "Window!");
     ~GraphicsRenderer();
-
+    [[nodiscard]] bool isAlive() const;
     void run() const;
 
   private:

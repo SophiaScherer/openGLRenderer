@@ -1,11 +1,12 @@
 #include "GraphicsRenderer.h"
 #include <iostream>
 #include <stdexcept>
+#include <utility>
 
 namespace gr
 {
-  GraphicsRenderer::GraphicsRenderer(int width, int height, const std::string& title)
-    : width(width), height(height), title(title), window(nullptr)
+  GraphicsRenderer::GraphicsRenderer(const int width, const int height, std::string  title)
+    : window(nullptr), width(width), height(height), title(std::move(title))
   {
     initWindow();
   }
@@ -33,16 +34,16 @@ namespace gr
     glfwMakeContextCurrent(window);
   }
 
+  bool GraphicsRenderer::isAlive() const
+  {
+    return !glfwWindowShouldClose(window);
+  }
+
   void GraphicsRenderer::run() const
   {
-    while (!glfwWindowShouldClose(window))
-    {
-      glClear(GL_COLOR_BUFFER_BIT);
-
-      glfwSwapBuffers(window);
-
-      glfwPollEvents();
-    }
+    glClear(GL_COLOR_BUFFER_BIT);
+    glfwSwapBuffers(window);
+    glfwPollEvents();
   }
 
   void GraphicsRenderer::cleanUp()
