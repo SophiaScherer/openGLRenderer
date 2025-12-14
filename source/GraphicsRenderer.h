@@ -6,8 +6,6 @@
 namespace gr
 {
 
-  void printHelloWorld();
-
   class GraphicsRenderer
   {
   public:
