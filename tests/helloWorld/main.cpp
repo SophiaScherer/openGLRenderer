@@ -1,6 +1,6 @@
-#include <iostream>
+#include <source/GraphicsRenderer.h>
 
 int main()
 {
-  std::cout << "Hello World!\n";
+  printHelloWorld();
 }
