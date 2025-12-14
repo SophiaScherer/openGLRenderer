@@ -30,8 +30,10 @@ FetchContent_MakeAvailable(
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
     glfw
+    glad
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
     ${glm_SOURCE_DIR}
+    ../external/include
 )
