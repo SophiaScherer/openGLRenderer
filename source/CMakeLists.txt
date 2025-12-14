@@ -31,8 +31,11 @@ FetchContent_MakeAvailable(
     glm
 )
 
+find_package(OpenGL REQUIRED)
+
 target_link_libraries(${PROJECT_NAME} PUBLIC
     glfw
+    OpenGL::GL
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
