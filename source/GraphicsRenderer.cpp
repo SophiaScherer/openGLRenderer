@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <utility>
+#include <glad/glad.h>
 
 namespace gr
 {
@@ -32,6 +33,10 @@ namespace gr
     }
 
     glfwMakeContextCurrent(window);
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+      throw std::runtime_error("Failed to initialize GLAD");
+    }
   }
 
   bool GraphicsRenderer::isAlive() const
