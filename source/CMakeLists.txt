@@ -7,6 +7,7 @@ set(BUILD_SHARED_LIBS ON)
 add_library(${PROJECT_NAME}
     ../external/include/glad/glad.c
     GraphicsRenderer.cpp
+    Shader.cpp
 )
 
 # GLFW
