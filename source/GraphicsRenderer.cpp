@@ -107,6 +107,25 @@ namespace gr
     glBindVertexArray(0);
   }
 
+  void GraphicsRenderer::triangle(float x1, float y1, float x2, float y2, float x3, float y3, float r, float g, float b) const
+  {
+    float vertices[] = {
+      x1, y1, r, g, b,
+      x2, y2, r, g, b,
+      x3, y3, r, g, b
+    };
+
+    shader->use();
+
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
+
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+
+    glBindVertexArray(0);
+  }
+
   void GraphicsRenderer::cleanUp()
   {
     glDeleteVertexArrays(1, &VAO);

@@ -17,9 +17,23 @@ namespace gr
     [[nodiscard]] bool isAlive() const;
     void clear() const;
     void present() const;
-    void rectangle(float x, float y,
-                   float width, float height,
-                   float r, float g, float b) const;
+    void rectangle(float x,
+                   float y,
+                   float width,
+                   float height,
+                   float r,
+                   float g,
+                   float b) const;
+
+    void triangle(float x1,
+                  float y1,
+                  float x2,
+                  float y2,
+                  float x3,
+                  float y3,
+                  float r,
+                  float g,
+                  float b) const;
 
   private:
     GLFWwindow* window;
