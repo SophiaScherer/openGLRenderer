@@ -15,7 +15,6 @@ namespace gr
     explicit GraphicsRenderer(int width = 640, int height = 480, std::string  = "Window!");
     ~GraphicsRenderer();
     [[nodiscard]] bool isAlive() const;
-    //void run() const;
     void clear() const;
     void present() const;
     void rectangle(float x, float y,

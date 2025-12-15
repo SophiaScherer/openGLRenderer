@@ -25,8 +25,8 @@ namespace gr
       throw std::runtime_error("Failed to initialize GLFW");
     }
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
@@ -63,8 +63,8 @@ namespace gr
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
   }
 
   bool GraphicsRenderer::isAlive() const
@@ -83,13 +83,6 @@ namespace gr
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
-
-  // void GraphicsRenderer::run() const
-  // {
-  //   glClear(GL_COLOR_BUFFER_BIT);
-  //   glfwSwapBuffers(window);
-  //   glfwPollEvents();
-  // }
 
   void GraphicsRenderer::rectangle(float x, float y, float width, float height, float r, float g, float b) const
   {
@@ -111,7 +104,6 @@ namespace gr
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
   }
 

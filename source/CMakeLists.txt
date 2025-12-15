@@ -44,4 +44,3 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     ../external/include
 )
 
-file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/shaders/" DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/shaders/")
