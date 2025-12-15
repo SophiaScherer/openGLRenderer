@@ -84,7 +84,10 @@ namespace gr
     glDeleteShader(fragment);
   }
 
-  Shader::~Shader() = default;
+  Shader::~Shader()
+  {
+    glDeleteProgram(ID);
+  }
 
   void Shader::use()
   {
