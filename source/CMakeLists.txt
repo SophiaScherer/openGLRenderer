@@ -4,7 +4,11 @@ include(FetchContent)
 
 set(BUILD_SHARED_LIBS ON)
 
-add_library(${PROJECT_NAME} GraphicsRenderer.cpp)
+add_library(${PROJECT_NAME}
+    ../external/include/glad/glad.c
+    GraphicsRenderer.cpp
+    Shader.cpp
+)
 
 # GLFW
 set(GLFW_BUILD_EXAMPLES OFF)
@@ -28,12 +32,16 @@ FetchContent_MakeAvailable(
     glm
 )
 
+find_package(OpenGL REQUIRED)
+
 target_link_libraries(${PROJECT_NAME} PUBLIC
     glfw
-    glad
+    OpenGL::GL
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
     ${glm_SOURCE_DIR}
     ../external/include
 )
+
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/shaders/" DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/shaders/")
