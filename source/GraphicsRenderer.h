@@ -1,12 +1,13 @@
 #ifndef GRAPHICSRENDERER_H
 #define GRAPHICSRENDERER_H
 
+#include <memory>
 #include <GLFW/glfw3.h>
 #include <string>
 
 namespace gr
 {
-
+  class Shader;
   class GraphicsRenderer
   {
   public:
@@ -20,6 +21,7 @@ namespace gr
     int width;
     int height;
     std::string title;
+    std::unique_ptr<Shader> shader;
 
     void initWindow();
     static void cleanUp();

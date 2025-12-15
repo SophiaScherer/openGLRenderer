@@ -1,8 +1,8 @@
+#include <glad/glad.h>
 #include "GraphicsRenderer.h"
-#include <iostream>
+#include "Shader.h"
 #include <stdexcept>
 #include <utility>
-#include <glad/glad.h>
 
 namespace gr
 {
