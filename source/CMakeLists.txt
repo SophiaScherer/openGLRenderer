@@ -43,3 +43,5 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     ${glm_SOURCE_DIR}
     ../external/include
 )
+
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/shaders/" DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/shaders/")
