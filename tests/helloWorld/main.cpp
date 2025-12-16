@@ -16,9 +16,6 @@ int main()
     renderer.triangle(300., 200., 400., 200., 350., 100., 0.0, 1.0, 0.0);
     renderer.triangle(400., 400., 500., 400., 450., 500., 1.0, 0.0, 1.0);
 
-    // renderer.ellipse(450., 250., 50., 50., 100, 1.0, 1.0, 0.0);
-    // renderer.ellipse(350., 350., 50., 50., 100, 0.0, 1.0, 1.0);
-
     renderer.ellipse(350., 350., 50., 50., 0.0, 1.0, 1.0);
 
     renderer.present();

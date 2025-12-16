@@ -35,15 +35,6 @@ namespace gr
                   float g,
                   float b) const;
 
-    // void ellipseOld(float cx,
-    //              float cy,
-    //              float xRad,
-    //              float yRad,
-    //              int segments,
-    //              float r,
-    //              float g,
-    //              float b) const;
-
     void ellipse(float cx,
                   float cy,
                   float xRad,

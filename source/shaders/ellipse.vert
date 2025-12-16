@@ -10,9 +10,6 @@ out vec2 fragPos;
 
 void main()
 {
-//    vec2 position = (projection * vec4(aPos, 0.0, 1.0)).xy;
-//    //gl_Position = position;
-//    fragPos = position;
 
     gl_Position = projection * vec4(aPos, 0.0, 1.0);
     fragPos = aPos;
