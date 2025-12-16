@@ -1,6 +1,7 @@
 #ifndef SHADER_H
 #define SHADER_H
 
+#include <glm/glm.hpp>
 #include <string>
 
 namespace gr
@@ -13,9 +14,12 @@ namespace gr
     ~Shader();
 
     void use() const;
-    void setBool(const std::string& name, bool value) const;
-    void setInt(const std::string& name, int value) const;
-    void setFloat(const std::string& name, float value) const;
+    void setUniform(const std::string& name, bool value) const;
+    void setUniform(const std::string& name, int value) const;
+    void setUniform(const std::string& name, float value) const;
+    void setUniform(const std::string& name, float r, float g, float b) const;
+    void setUniform(const std::string& name, const glm::mat4& mat) const;
+
     unsigned int ID;
 
   private:

@@ -2,9 +2,9 @@
 #define GRAPHICSRENDERER_H
 
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 #include <memory>
 #include <string>
-#include "glm/vec3.hpp"
 
 namespace gr
 {
@@ -44,6 +44,7 @@ namespace gr
     std::unique_ptr<Shader> shader;
     unsigned int VAO;
     unsigned int VBO;
+    glm::mat4 projection;
 
     void initWindow();
     void initOpenGL();

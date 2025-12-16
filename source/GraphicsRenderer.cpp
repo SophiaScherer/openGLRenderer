@@ -4,6 +4,8 @@
 #include <stdexcept>
 #include <utility>
 
+#include "glm/ext/matrix_clip_space.hpp"
+
 namespace gr
 {
   GraphicsRenderer::GraphicsRenderer(const int width, const int height, std::string  title)
@@ -50,6 +52,8 @@ namespace gr
   void GraphicsRenderer::initOpenGL()
   {
     shader = std::make_unique<Shader>("shaders/shape.vert", "shaders/shape.frag");
+
+    projection = glm::ortho(0.0f, static_cast<float>(width), static_cast<float>(height), 0.0f, -1.0f, 1.0f);
 
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -98,6 +102,9 @@ namespace gr
 
     shader->use();
 
+    shader->setUniform("color", r, g, b);
+    shader->setUniform("projection", projection);
+
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
@@ -116,6 +123,8 @@ namespace gr
     };
 
     shader->use();
+    //shader->setUniform("color", r, g, b);
+    shader->setUniform("projection", projection);
 
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
