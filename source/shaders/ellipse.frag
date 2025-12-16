@@ -3,26 +3,20 @@
 uniform vec2 center;
 uniform vec2 rad;
 
-out vec4 FragColor;
-
-in vec3 color;
+in vec3 ourColor;
 in vec2 fragPos;
+
+out vec4 FragColor;
 
 void main()
 {
+    float dx = (fragPos.x - center.x) / rad.x;
+    float dy = (fragPos.y - center.y) / rad.y;
+    float dist = dx * dx + dy * dy;
 
-    for (float i = fragPos.x - w; i < fragPos.x + w; i++) {
-        for (float j = fragPos.y - h; j < fragPos.y + h; j++) {
-
-            float pointCheck = (pow((i - fragPos.x), 2) / pow(w / 2, 2)) + (pow((j - fragPos.y), 2) / pow(h / 2, 2));
-
-            if (pointCheck > 1.0) {
-                continue;
-            }
-
-            //point(i, j);
-        }
+    if (dist > 1.0) {
+        discard;
     }
 
-    FragColor = vec4(color, 1.0);
+    FragColor = vec4(ourColor, 1.0);
 }
