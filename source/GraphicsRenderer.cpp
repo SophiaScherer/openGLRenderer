@@ -61,11 +61,14 @@ namespace gr
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
-    glEnableVertexAttribArray(1);
+    // glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    // glEnableVertexAttribArray(0);
+    //
+    // glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
+    // glEnableVertexAttribArray(1);
 
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -91,13 +94,13 @@ namespace gr
   void GraphicsRenderer::rectangle(float x, float y, float width, float height, float r, float g, float b) const
   {
     float vertices[] = {
-      x, y,                   r, g, b,
-      x + width, y,           r, g, b,
-      x + width, y + height,  r, g, b,
+      x, y,
+      x + width, y,
+      x + width, y + height,
 
-      x + width, y + height,  r, g, b,
-      x, y + height,          r, g, b,
-      x, y,                   r, g, b
+      x + width, y + height,
+      x, y + height,
+      x, y
     };
 
     shader->use();
@@ -117,13 +120,13 @@ namespace gr
   void GraphicsRenderer::triangle(float x1, float y1, float x2, float y2, float x3, float y3, float r, float g, float b) const
   {
     float vertices[] = {
-      x1, y1, r, g, b,
-      x2, y2, r, g, b,
-      x3, y3, r, g, b
+      x1, y1,
+      x2, y2,
+      x3, y3
     };
 
     shader->use();
-    //shader->setUniform("color", r, g, b);
+    shader->setUniform("color", r, g, b);
     shader->setUniform("projection", projection);
 
     glBindVertexArray(VAO);
