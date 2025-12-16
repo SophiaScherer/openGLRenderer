@@ -65,12 +65,6 @@ namespace gr
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    // glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-    // glEnableVertexAttribArray(0);
-    //
-    // glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
-    // glEnableVertexAttribArray(1);
-
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
   }
@@ -156,9 +150,9 @@ namespace gr
     };
 
     ellipseShader->use();
+
     ellipseShader->setUniform("color", r, g, b);
     ellipseShader->setUniform("projection", projection);
-
     ellipseShader->setUniform("center", cx, cy);
     ellipseShader->setUniform("rad", xRad, yRad);
 
