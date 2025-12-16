@@ -52,6 +52,7 @@ namespace gr
   void GraphicsRenderer::initOpenGL()
   {
     shader = std::make_unique<Shader>("shaders/shape.vert", "shaders/shape.frag");
+    ellipseShader = std::make_unique<Shader>("shaders/ellipse.vert", "shaders/ellipse.frag");
 
     projection = glm::ortho(0.0f, static_cast<float>(width), static_cast<float>(height), 0.0f, -1.0f, 1.0f);
 
@@ -161,6 +162,38 @@ namespace gr
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_DYNAMIC_DRAW);
 
     glDrawArrays(GL_TRIANGLE_FAN, 0, segments + 2);
+
+    glBindVertexArray(0);
+  }
+
+  void GraphicsRenderer::ellipse2(float cx, float cy, float xRad, float yRad, float r, float g, float b) const
+  {
+    float x = cx - xRad;
+    float y = cy - yRad;
+    float width = 2 * xRad;
+    float height = 2 * yRad;
+
+    float vertices[] = {
+      x, y,
+      x + width, y,
+      x + width, y + height,
+      x + width, y + height,
+      x, y + height,
+      x, y
+    };
+
+    ellipseShader->use();
+    ellipseShader->setUniform("color", r, g, b);
+    ellipseShader->setUniform("projection", projection);
+
+    ellipseShader->setUniform("center", cx, cy);
+    ellipseShader->setUniform("rad", xRad, yRad);
+
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
+
+    glDrawArrays(GL_TRIANGLE_FAN, 0, 6);
 
     glBindVertexArray(0);
   }

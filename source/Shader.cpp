@@ -118,4 +118,9 @@ namespace gr
   {
     glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
   }
+
+  void Shader::setUniform(const std::string& name, float x, float y) const
+  {
+    glUniform2f(glGetUniformLocation(ID, name.c_str()), x, y);
+  }
 }

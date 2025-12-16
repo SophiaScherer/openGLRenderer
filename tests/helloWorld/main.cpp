@@ -19,6 +19,8 @@ int main()
     renderer.ellipse(450., 250., 50., 50., 100, 1.0, 1.0, 0.0);
     renderer.ellipse(350., 350., 50., 50., 100, 0.0, 1.0, 1.0);
 
+    renderer.ellipse2(350., 350., 50., 50., 0.0, 1.0, 1.0);
+
     renderer.present();
   }
 

@@ -44,6 +44,14 @@ namespace gr
                  float g,
                  float b) const;
 
+    void ellipse2(float cx,
+                  float cy,
+                  float xRad,
+                  float yRad,
+                  float r,
+                  float g,
+                  float b) const;
+
   private:
     GLFWwindow* window;
     int width;
@@ -51,6 +59,7 @@ namespace gr
     std::string title;
 
     std::unique_ptr<Shader> shader;
+    std::unique_ptr<Shader> ellipseShader;
     unsigned int VAO;
     unsigned int VBO;
     glm::mat4 projection;

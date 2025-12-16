@@ -19,6 +19,7 @@ namespace gr
     void setUniform(const std::string& name, float value) const;
     void setUniform(const std::string& name, float r, float g, float b) const;
     void setUniform(const std::string& name, const glm::mat4& mat) const;
+    void setUniform(const std::string& name, float x, float y) const;
 
     unsigned int ID;
 
