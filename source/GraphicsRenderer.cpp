@@ -138,6 +138,33 @@ namespace gr
     glBindVertexArray(0);
   }
 
+  void GraphicsRenderer::ellipse(float cx, float cy, float xRad, float yRad, int segments, float r, float g, float b) const
+  {
+    std::vector<float> vertices;
+
+    vertices.push_back(cx);
+    vertices.push_back(cy);
+
+    for (int i = 0; i <= segments; i++)
+    {
+      float angle = (2. * M_PI * i) / static_cast<float>(segments);
+      vertices.push_back(cx + cos(angle) * xRad);
+      vertices.push_back(cy + sin(angle) * yRad);
+    }
+
+    shader->use();
+    shader->setUniform("color", r, g, b);
+    shader->setUniform("projection", projection);
+
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_DYNAMIC_DRAW);
+
+    glDrawArrays(GL_TRIANGLE_FAN, 0, segments + 2);
+
+    glBindVertexArray(0);
+  }
+
   void GraphicsRenderer::cleanUp()
   {
     glDeleteVertexArrays(1, &VAO);
