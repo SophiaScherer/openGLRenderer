@@ -1,6 +1,7 @@
 #ifndef SHADER_H
 #define SHADER_H
 
+#include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <string>
 
@@ -21,6 +22,11 @@ namespace gr
 
   private:
     unsigned int ID;
+
+    [[nodiscard]] std::string readShaderFile(const std::string& filePath) const;
+
+    GLuint loadVertexShader(const char* shaderCode) const;
+    GLuint loadFragmentShader(const char* shaderCode) const;
   };
 }
 
