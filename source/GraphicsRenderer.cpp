@@ -4,6 +4,8 @@
 #include <stdexcept>
 #include <utility>
 
+#include "glm/ext/matrix_clip_space.hpp"
+
 namespace gr
 {
   GraphicsRenderer::GraphicsRenderer(const int width, const int height, std::string  title)
@@ -50,6 +52,9 @@ namespace gr
   void GraphicsRenderer::initOpenGL()
   {
     shader = std::make_unique<Shader>("shaders/shape.vert", "shaders/shape.frag");
+    ellipseShader = std::make_unique<Shader>("shaders/ellipse.vert", "shaders/ellipse.frag");
+
+    projection = glm::ortho(0.0f, static_cast<float>(width), static_cast<float>(height), 0.0f, -1.0f, 1.0f);
 
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -57,11 +62,8 @@ namespace gr
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
-
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
-    glEnableVertexAttribArray(1);
 
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -87,22 +89,78 @@ namespace gr
   void GraphicsRenderer::rectangle(float x, float y, float width, float height, float r, float g, float b) const
   {
     float vertices[] = {
-      x, y,                   r, g, b,
-      x + width, y,           r, g, b,
-      x + width, y + height,  r, g, b,
+      x, y,
+      x + width, y,
+      x + width, y + height,
 
-      x + width, y + height,  r, g, b,
-      x, y + height,          r, g, b,
-      x, y,                   r, g, b
+      x + width, y + height,
+      x, y + height,
+      x, y
     };
 
     shader->use();
+
+    shader->setUniform("color", r, g, b);
+    shader->setUniform("projection", projection);
 
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
+
+    glBindVertexArray(0);
+  }
+
+  void GraphicsRenderer::triangle(float x1, float y1, float x2, float y2, float x3, float y3, float r, float g, float b) const
+  {
+    float vertices[] = {
+      x1, y1,
+      x2, y2,
+      x3, y3
+    };
+
+    shader->use();
+    shader->setUniform("color", r, g, b);
+    shader->setUniform("projection", projection);
+
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
+
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+
+    glBindVertexArray(0);
+  }
+
+  void GraphicsRenderer::ellipse(float cx, float cy, float xRad, float yRad, float r, float g, float b) const
+  {
+    float x = cx - xRad;
+    float y = cy - yRad;
+    float width = 2 * xRad;
+    float height = 2 * yRad;
+
+    float vertices[] = {
+      x, y,
+      x + width, y,
+      x + width, y + height,
+      x + width, y + height,
+      x, y + height,
+      x, y
+    };
+
+    ellipseShader->use();
+
+    ellipseShader->setUniform("color", r, g, b);
+    ellipseShader->setUniform("projection", projection);
+    ellipseShader->setUniform("center", cx, cy);
+    ellipseShader->setUniform("rad", xRad, yRad);
+
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
+
+    glDrawArrays(GL_TRIANGLE_FAN, 0, 6);
 
     glBindVertexArray(0);
   }
