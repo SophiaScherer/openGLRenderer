@@ -23,10 +23,10 @@ namespace gr
   private:
     unsigned int ID;
 
-    [[nodiscard]] std::string readShaderFile(const std::string& filePath) const;
+    [[nodiscard]] static std::string readShaderFile(const std::string& filePath) ;
 
-    GLuint loadVertexShader(const char* shaderCode) const;
-    GLuint loadFragmentShader(const char* shaderCode) const;
+    static GLuint loadVertexShader(const char* shaderCode) ;
+    static GLuint loadFragmentShader(const char* shaderCode) ;
   };
 }
 

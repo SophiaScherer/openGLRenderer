@@ -15,7 +15,6 @@ namespace gr
     const auto fragment = loadFragmentShader(fragmentCode.c_str());
 
     int success;
-    char infoLog[512];
 
     ID = glCreateProgram();
     glAttachShader(ID, vertex);
@@ -25,6 +24,7 @@ namespace gr
     glGetProgramiv(ID, GL_LINK_STATUS, &success);
     if (!success)
     {
+      char infoLog[512];
       glGetProgramInfoLog(ID, 512, nullptr, infoLog);
       std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
     }
@@ -58,7 +58,7 @@ namespace gr
     glUniform2f(glGetUniformLocation(ID, name.c_str()), x, y);
   }
 
-  std::string Shader::readShaderFile(const std::string& filePath) const
+  std::string Shader::readShaderFile(const std::string& filePath)
   {
     std::string shaderCode;
     std::ifstream vShaderFile;
@@ -84,18 +84,18 @@ namespace gr
     return shaderCode;
   }
 
-  GLuint Shader::loadVertexShader(const char* shaderCode) const
+  GLuint Shader::loadVertexShader(const char* shaderCode)
   {
     int success;
-    char infoLog[512];
 
-    auto vertex = glCreateShader(GL_VERTEX_SHADER);
+    const auto vertex = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertex, 1, &shaderCode, nullptr);
     glCompileShader(vertex);
 
     glGetShaderiv(vertex, GL_COMPILE_STATUS, &success);
     if (!success)
     {
+      char infoLog[512];
       glGetShaderInfoLog(vertex, 512, nullptr, infoLog);
       std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
@@ -103,18 +103,18 @@ namespace gr
     return vertex;
   }
 
-  GLuint Shader::loadFragmentShader(const char* shaderCode) const
+  GLuint Shader::loadFragmentShader(const char* shaderCode)
   {
     int success;
-    char infoLog[512];
 
-    auto fragment = glCreateShader(GL_FRAGMENT_SHADER);
+    const auto fragment = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragment, 1, &shaderCode, nullptr);
     glCompileShader(fragment);
 
     glGetShaderiv(fragment, GL_COMPILE_STATUS, &success);
     if (!success)
     {
+      char infoLog[512];
       glGetShaderInfoLog(fragment, 512, nullptr, infoLog);
       std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED" << std::endl;
     }
