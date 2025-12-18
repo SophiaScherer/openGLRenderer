@@ -2,8 +2,8 @@
 
 int main()
 {
-  const int width = 800;
-  const int height = 600;
+  constexpr int width = 800;
+  constexpr int height = 600;
   const auto renderer = gr::GraphicsRenderer(width, height, "hello");
 
   while (renderer.isAlive())

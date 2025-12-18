@@ -8,7 +8,7 @@
 
 namespace gr
 {
-  GraphicsRenderer::GraphicsRenderer(const int width, const int height, std::string  title)
+  GraphicsRenderer::GraphicsRenderer(const int width, const int height, std::string title)
     : window(nullptr), width(width), height(height), title(std::move(title))
   {
     initWindow();
@@ -62,7 +62,7 @@ namespace gr
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), static_cast<void*>(nullptr));
     glEnableVertexAttribArray(0);
 
     glBindVertexArray(0);
@@ -74,7 +74,7 @@ namespace gr
     return !glfwWindowShouldClose(window);
   }
 
-  void GraphicsRenderer::clear() const
+  void GraphicsRenderer::clear()
   {
     glClearColor(0.1f, 0.2f, 0.2f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -88,7 +88,7 @@ namespace gr
 
   void GraphicsRenderer::rectangle(float x, float y, float width, float height, float r, float g, float b) const
   {
-    float vertices[] = {
+    const float vertices[] = {
       x, y,
       x + width, y,
       x + width, y + height,
@@ -114,7 +114,7 @@ namespace gr
 
   void GraphicsRenderer::triangle(float x1, float y1, float x2, float y2, float x3, float y3, float r, float g, float b) const
   {
-    float vertices[] = {
+    const float vertices[] = {
       x1, y1,
       x2, y2,
       x3, y3
@@ -135,12 +135,12 @@ namespace gr
 
   void GraphicsRenderer::ellipse(float cx, float cy, float xRad, float yRad, float r, float g, float b) const
   {
-    float x = cx - xRad;
-    float y = cy - yRad;
-    float width = 2 * xRad;
-    float height = 2 * yRad;
+    const float x = cx - xRad;
+    const float y = cy - yRad;
+    const float width = 2 * xRad;
+    const float height = 2 * yRad;
 
-    float vertices[] = {
+    const float vertices[] = {
       x, y,
       x + width, y,
       x + width, y + height,
@@ -165,7 +165,7 @@ namespace gr
     glBindVertexArray(0);
   }
 
-  void GraphicsRenderer::cleanUp()
+  void GraphicsRenderer::cleanUp() const
   {
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);

@@ -15,7 +15,7 @@ namespace gr
     explicit GraphicsRenderer(int width = 640, int height = 480, std::string  = "Window!");
     ~GraphicsRenderer();
     [[nodiscard]] bool isAlive() const;
-    void clear() const;
+    static void clear() ;
     void present() const;
     void rectangle(float x,
                    float y,
@@ -51,13 +51,13 @@ namespace gr
 
     std::unique_ptr<Shader> shader;
     std::unique_ptr<Shader> ellipseShader;
-    unsigned int VAO;
-    unsigned int VBO;
-    glm::mat4 projection;
+    unsigned int VAO{};
+    unsigned int VBO{};
+    glm::mat4 projection{};
 
     void initWindow();
     void initOpenGL();
-    void cleanUp();
+    void cleanUp() const;
   };
 
 }
