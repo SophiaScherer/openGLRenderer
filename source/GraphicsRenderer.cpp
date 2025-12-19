@@ -104,6 +104,7 @@ namespace gr
 
     shader->setUniform("color", r, g, b);
     shader->setUniform("projection", projection);
+    shader->setUniform("transform", nowTransform);
 
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -125,6 +126,7 @@ namespace gr
     shader->use();
     shader->setUniform("color", r, g, b);
     shader->setUniform("projection", projection);
+    shader->setUniform("transform", nowTransform);
 
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -157,6 +159,7 @@ namespace gr
     ellipseShader->setUniform("projection", projection);
     ellipseShader->setUniform("center", cx, cy);
     ellipseShader->setUniform("rad", xRad, yRad);
+    shader->setUniform("transform", nowTransform);
 
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
