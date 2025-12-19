@@ -43,8 +43,15 @@ namespace gr
                   float g,
                   float b) const;
 
+    void translate(float x, float y);
+    void rotate(float angle);
+    void scale(float x, float y);
+    void pushTransformation();
+    void popTransformation();
+
   private:
     GLFWwindow* window;
+
     int width;
     int height;
     std::string title;
@@ -53,7 +60,11 @@ namespace gr
     std::unique_ptr<Shader> ellipseShader;
     unsigned int VAO{};
     unsigned int VBO{};
+
     glm::mat4 projection{};
+    glm::mat4 nowTransform;
+    std::vector<glm::mat4> transformStack{};
+    glm::mat4 transformMatrix{};
 
     void initWindow();
     void initOpenGL();

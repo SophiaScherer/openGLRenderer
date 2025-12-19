@@ -3,8 +3,9 @@
 #include "Shader.h"
 #include <stdexcept>
 #include <utility>
-
-#include "glm/ext/matrix_clip_space.hpp"
+#include <stack>
+#include <glm/ext/matrix_clip_space.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace gr
 {
@@ -13,6 +14,7 @@ namespace gr
   {
     initWindow();
     initOpenGL();
+    nowTransform = glm::mat4(1.0f);
   }
 
   GraphicsRenderer::~GraphicsRenderer()
@@ -163,6 +165,35 @@ namespace gr
     glDrawArrays(GL_TRIANGLE_FAN, 0, 6);
 
     glBindVertexArray(0);
+  }
+
+  void GraphicsRenderer::translate(float x, float y)
+  {
+    nowTransform = glm::translate(nowTransform, glm::vec3(x, y, 0.0f));
+  }
+
+  void GraphicsRenderer::rotate(float angle)
+  {
+    nowTransform = glm::rotate(nowTransform, angle, glm::vec3(0.0f, 0.0f, 1.0f));
+  }
+
+  void GraphicsRenderer::scale(float x, float y)
+  {
+    nowTransform = glm::scale(nowTransform, glm::vec3(x, y, 0.0f));
+  }
+
+  void GraphicsRenderer::pushTransformation()
+  {
+    transformStack.push_back(nowTransform);
+  }
+
+  void GraphicsRenderer::popTransformation()
+  {
+    if (!transformStack.empty())
+    {
+      nowTransform = transformStack.back();
+      transformStack.pop_back();
+    }
   }
 
   void GraphicsRenderer::cleanUp() const
