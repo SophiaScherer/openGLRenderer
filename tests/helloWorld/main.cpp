@@ -10,27 +10,23 @@ int main()
   {
     gr::GraphicsRenderer::clear();
 
-    renderer.fill(1., 0.0, 0.5);
     renderer.pushTransformation();
-    renderer.rotate(45.);
-      renderer.rectangle(0.0f, 0.0f, 150.0f, 150.0f);
+      renderer.fill(1.0, 0.0, 1.0);
+      renderer.translate(width/2., height/2.);
+      renderer.rectangle(0.0, 0.0, 50.0, 50.0);
     renderer.popTransformation();
 
-    renderer.fill(0.5, 0.0, 1.);
     renderer.pushTransformation();
-      renderer.translate(300.0f, 200.0f);
-      renderer.triangle(0., 0., 100., 0., 50., 50.);
-      //renderer.rectangle(0.0f, 0.0f, 100.0f, 100.0f, 0.0f, 0.0f, 1.0f);
+      renderer.translate(width/3., height/3.);
+      renderer.triangle(0.0, 0.0, 50.0, 0.0, 50.0, 50.0);
     renderer.popTransformation();
 
-    renderer.rectangle(400.0f, 300.0f, 100.0f, 100.0f);
-
     renderer.pushTransformation();
-    renderer.translate(2.0f, 3.0f);
-    renderer.triangle(400., 400., 500., 400., 450., 500.);
+      renderer.translate(width/4., height/4.);
+      renderer.scale(5., 5.);
+      renderer.ellipse(0.0, 0.0, 10., 10.);
     renderer.popTransformation();
 
-    renderer.ellipse(350., 350., 50., 50.);
 
     renderer.present();
   }
