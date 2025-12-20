@@ -17,6 +17,7 @@ int main()
     renderer.popTransformation();
 
     renderer.pushTransformation();
+      renderer.fill(0.0, 1.0, 0.0);
       renderer.translate(width/3., height/3.);
       renderer.triangle(0.0, 0.0, 50.0, 0.0, 50.0, 50.0);
     renderer.popTransformation();

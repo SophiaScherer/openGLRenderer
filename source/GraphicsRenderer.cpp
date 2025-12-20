@@ -156,11 +156,11 @@ namespace gr
 
     ellipseShader->use();
 
-    shader->setUniform("color", currentFill.r, currentFill.g, currentFill.b);
+    ellipseShader->setUniform("color", currentFill.r, currentFill.g, currentFill.b);
     ellipseShader->setUniform("projection", projection);
     ellipseShader->setUniform("center", cx, cy);
     ellipseShader->setUniform("rad", xRad, yRad);
-    shader->setUniform("transform", nowTransform);
+    ellipseShader->setUniform("transform", nowTransform);
 
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
