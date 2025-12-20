@@ -88,7 +88,7 @@ namespace gr
   void GraphicsRenderer::present() const
   {
     glfwSwapBuffers(m_window);
-    
+
     glfwPollEvents();
   }
 
@@ -97,11 +97,8 @@ namespace gr
     const float vertices[] = {
       x, y,
       x + width, y,
-      x + width, y + height,
-
-      x + width, y + height,
       x, y + height,
-      x, y
+      x + width, y + height
     };
 
     m_shader->use();
@@ -114,7 +111,7 @@ namespace gr
     glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
 
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
     glBindVertexArray(0);
   }
