@@ -26,7 +26,7 @@ int main()
     renderer.fill(0, 255, 255);
     renderer.pushMatrix();
       renderer.translate(width / 4.0f, height / 4.0f);
-      renderer.scale(5, 5);
+      renderer.scale(10, 10);
       renderer.ellipse(0, 0, 10, 10);
     renderer.popMatrix();
 
