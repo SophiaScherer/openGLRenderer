@@ -185,12 +185,12 @@ namespace gr
     m_nowTransform = glm::scale(m_nowTransform, glm::vec3(x, y, 1.0f));
   }
 
-  void GraphicsRenderer::pushTransformation()
+  void GraphicsRenderer::pushMatrix()
   {
     m_transformStack.push_back(m_nowTransform);
   }
 
-  void GraphicsRenderer::popTransformation()
+  void GraphicsRenderer::popMatrix()
   {
     if (m_transformStack.empty())
     {

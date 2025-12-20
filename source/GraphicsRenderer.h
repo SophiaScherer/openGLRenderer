@@ -43,8 +43,8 @@ namespace gr
     void translate(float x, float y);
     void rotate(float angle);
     void scale(float x, float y);
-    void pushTransformation();
-    void popTransformation();
+    void pushMatrix();
+    void popMatrix();
 
     void fill(float r,
               float g,
