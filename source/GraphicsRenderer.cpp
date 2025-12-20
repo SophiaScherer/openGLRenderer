@@ -15,6 +15,7 @@ namespace gr
     initWindow();
     initOpenGL();
     nowTransform = glm::mat4(1.0f);
+    currentFill = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
   }
 
   GraphicsRenderer::~GraphicsRenderer()
@@ -88,7 +89,7 @@ namespace gr
     glfwPollEvents();
   }
 
-  void GraphicsRenderer::rectangle(float x, float y, float width, float height, float r, float g, float b) const
+  void GraphicsRenderer::rectangle(float x, float y, float width, float height) const
   {
     const float vertices[] = {
       x, y,
@@ -102,7 +103,7 @@ namespace gr
 
     shader->use();
 
-    shader->setUniform("color", r, g, b);
+    shader->setUniform("color", currentFill.r, currentFill.g, currentFill.b);
     shader->setUniform("projection", projection);
     shader->setUniform("transform", nowTransform);
 
@@ -115,7 +116,7 @@ namespace gr
     glBindVertexArray(0);
   }
 
-  void GraphicsRenderer::triangle(float x1, float y1, float x2, float y2, float x3, float y3, float r, float g, float b) const
+  void GraphicsRenderer::triangle(float x1, float y1, float x2, float y2, float x3, float y3) const
   {
     const float vertices[] = {
       x1, y1,
@@ -124,7 +125,7 @@ namespace gr
     };
 
     shader->use();
-    shader->setUniform("color", r, g, b);
+    shader->setUniform("color", currentFill.r, currentFill.g, currentFill.b);
     shader->setUniform("projection", projection);
     shader->setUniform("transform", nowTransform);
 
@@ -137,7 +138,7 @@ namespace gr
     glBindVertexArray(0);
   }
 
-  void GraphicsRenderer::ellipse(float cx, float cy, float xRad, float yRad, float r, float g, float b) const
+  void GraphicsRenderer::ellipse(float cx, float cy, float xRad, float yRad) const
   {
     const float x = cx - xRad;
     const float y = cy - yRad;
@@ -155,7 +156,7 @@ namespace gr
 
     ellipseShader->use();
 
-    ellipseShader->setUniform("color", r, g, b);
+    shader->setUniform("color", currentFill.r, currentFill.g, currentFill.b);
     ellipseShader->setUniform("projection", projection);
     ellipseShader->setUniform("center", cx, cy);
     ellipseShader->setUniform("rad", xRad, yRad);
@@ -182,7 +183,7 @@ namespace gr
 
   void GraphicsRenderer::scale(float x, float y)
   {
-    nowTransform = glm::scale(nowTransform, glm::vec3(x, y, 0.0f));
+    nowTransform = glm::scale(nowTransform, glm::vec3(x, y, 1.0f));
   }
 
   void GraphicsRenderer::pushTransformation()
@@ -192,11 +193,18 @@ namespace gr
 
   void GraphicsRenderer::popTransformation()
   {
-    if (!transformStack.empty())
+    if (transformStack.empty())
     {
-      nowTransform = transformStack.back();
-      transformStack.pop_back();
+      return;
     }
+
+    nowTransform = transformStack.back();
+    transformStack.pop_back();
+  }
+
+  void GraphicsRenderer::fill(float r, float g, float b, float a)
+  {
+    currentFill = glm::vec4(r, g, b, a);
   }
 
   void GraphicsRenderer::cleanUp() const

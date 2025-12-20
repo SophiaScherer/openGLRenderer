@@ -20,34 +20,29 @@ namespace gr
     void rectangle(float x,
                    float y,
                    float width,
-                   float height,
-                   float r,
-                   float g,
-                   float b) const;
+                   float height) const;
 
     void triangle(float x1,
                   float y1,
                   float x2,
                   float y2,
                   float x3,
-                  float y3,
-                  float r,
-                  float g,
-                  float b) const;
+                  float y3) const;
 
     void ellipse(float cx,
                   float cy,
                   float xRad,
-                  float yRad,
-                  float r,
-                  float g,
-                  float b) const;
+                  float yRad) const;
 
     void translate(float x, float y);
     void rotate(float angle);
     void scale(float x, float y);
     void pushTransformation();
     void popTransformation();
+    void fill(float r,
+              float g,
+              float b,
+              float a = 1.0f);
 
   private:
     GLFWwindow* window;
@@ -64,7 +59,7 @@ namespace gr
     glm::mat4 projection{};
     glm::mat4 nowTransform;
     std::vector<glm::mat4> transformStack{};
-    glm::mat4 transformMatrix{};
+    glm::vec4 currentFill = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
     void initWindow();
     void initOpenGL();
