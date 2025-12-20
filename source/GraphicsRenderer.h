@@ -38,8 +38,8 @@ namespace gr
 
     void ellipse(float cx,
                   float cy,
-                  float xRad,
-                  float yRad) const;
+                  float width,
+                  float height) const;
 
     void translate(float x, float y);
     void rotate(float angle);

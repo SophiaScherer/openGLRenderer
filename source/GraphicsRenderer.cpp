@@ -138,20 +138,16 @@ namespace gr
     glBindVertexArray(0);
   }
 
-  void GraphicsRenderer::ellipse(float cx, float cy, float xRad, float yRad) const
+  void GraphicsRenderer::ellipse(float cx, float cy, float width, float height) const
   {
-    const float x = cx - xRad;
-    const float y = cy - yRad;
-    const float width = 2 * xRad;
-    const float height = 2 * yRad;
+    const float x = cx - width / 2.0f;
+    const float y = cy - height / 2.0f;
 
     const float vertices[] = {
       x, y,
       x + width, y,
-      x + width, y + height,
-      x + width, y + height,
       x, y + height,
-      x, y
+      x + width, y + height
     };
 
     m_ellipseShader->use();
@@ -159,14 +155,14 @@ namespace gr
     m_ellipseShader->setUniform("color", m_currentFill.r, m_currentFill.g, m_currentFill.b);
     m_ellipseShader->setUniform("projection", m_projection);
     m_ellipseShader->setUniform("center", cx, cy);
-    m_ellipseShader->setUniform("rad", xRad, yRad);
+    m_ellipseShader->setUniform("rad", width / 2.0f, height / 2.0f);
     m_ellipseShader->setUniform("transform", m_nowTransform);
 
     glBindVertexArray(m_VAO);
     glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
 
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
     glBindVertexArray(0);
   }
