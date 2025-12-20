@@ -53,7 +53,7 @@ namespace gr
               float a = 255.0f);
 
   private:
-    GLFWwindow* m_window;
+    GLFWwindow* m_window = nullptr;
 
     int m_width;
     int m_height;

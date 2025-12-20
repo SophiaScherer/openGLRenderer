@@ -9,10 +9,12 @@
 namespace gr
 {
   GraphicsRenderer::GraphicsRenderer(const int width, const int height, std::string title)
-    : m_window(nullptr), m_width(width), m_height(height), m_title(std::move(title))
+    : m_width(width), m_height(height), m_title(std::move(title))
   {
     initWindow();
+    
     initOpenGL();
+
     m_nowTransform = glm::mat4(1.0f);
     m_currentFill = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
   }
