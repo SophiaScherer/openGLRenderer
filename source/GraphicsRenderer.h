@@ -75,8 +75,6 @@ namespace gr
     void initWindow();
 
     void initOpenGL();
-
-    void cleanUp() const;
   };
 
 }

@@ -8,6 +8,7 @@
 
 namespace gr
 {
+  
   GraphicsRenderer::GraphicsRenderer(const int width, const int height, std::string title)
     : m_width(width), m_height(height), m_title(std::move(title))
   {
@@ -21,7 +22,10 @@ namespace gr
 
   GraphicsRenderer::~GraphicsRenderer()
   {
-    cleanUp();
+    glDeleteVertexArrays(1, &m_VAO);
+    glDeleteBuffers(1, &m_VBO);
+
+    glfwTerminate();
   }
 
   void GraphicsRenderer::initWindow()
@@ -203,11 +207,4 @@ namespace gr
     m_currentFill = glm::vec4(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
   }
 
-  void GraphicsRenderer::cleanUp() const
-  {
-    glDeleteVertexArrays(1, &m_VAO);
-    glDeleteBuffers(1, &m_VBO);
-
-    glfwTerminate();
-  }
 }

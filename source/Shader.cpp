@@ -6,6 +6,7 @@
 
 namespace gr
 {
+
   Shader::Shader (const char* vertexPath, const char* fragmentPath)
   {
     const auto vertexCode = readShaderFile(vertexPath);
@@ -121,4 +122,5 @@ namespace gr
 
     return fragment;
   }
+
 }
