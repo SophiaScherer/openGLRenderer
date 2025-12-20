@@ -2,8 +2,8 @@
 
 int main()
 {
-  constexpr int width = 800;
-  constexpr int height = 600;
+  constexpr float width = 800;
+  constexpr float height = 600;
   auto renderer = gr::GraphicsRenderer(width, height, "hello");
 
   while (renderer.isAlive())
@@ -12,22 +12,22 @@ int main()
 
     renderer.fill(255, 0, 255);
     renderer.pushTransformation();
-      renderer.translate(width/2., height/2.);
-      renderer.rotate(45.);
-      renderer.rectangle(0.0, 0.0, 50.0, 50.0);
+      renderer.translate(width / 2.0f, height / 2.0f);
+      renderer.rotate(45);
+      renderer.rectangle(0, 0, 50, 50);
     renderer.popTransformation();
 
     renderer.fill(255, 255, 0);
     renderer.pushTransformation();
-      renderer.translate(width/3., height/3.);
-      renderer.triangle(0.0, 0.0, 50.0, 0.0, 50.0, 50.0);
+      renderer.translate(width / 3.0f, height / 3.0f);
+      renderer.triangle(0, 0, 50, 0, 50, 50);
     renderer.popTransformation();
 
     renderer.fill(0, 255, 255);
     renderer.pushTransformation();
-      renderer.translate(width/4., height/4.);
-      renderer.scale(5., 5.);
-      renderer.ellipse(0.0, 0.0, 10., 10.);
+      renderer.translate(width / 4.0f, height / 4.0f);
+      renderer.scale(5, 5);
+      renderer.ellipse(0, 0, 10, 10);
     renderer.popTransformation();
 
 
