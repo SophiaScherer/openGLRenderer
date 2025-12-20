@@ -3,7 +3,6 @@
 #include "Shader.h"
 #include <stdexcept>
 #include <utility>
-#include <stack>
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -178,7 +177,7 @@ namespace gr
 
   void GraphicsRenderer::rotate(float angle)
   {
-    nowTransform = glm::rotate(nowTransform, angle, glm::vec3(0.0f, 0.0f, 1.0f));
+    nowTransform = glm::rotate(nowTransform, glm::radians(angle), glm::vec3(0.0f, 0.0f, 1.0f));
   }
 
   void GraphicsRenderer::scale(float x, float y)

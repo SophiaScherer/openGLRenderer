@@ -57,7 +57,7 @@ namespace gr
     unsigned int VBO{};
 
     glm::mat4 projection{};
-    glm::mat4 nowTransform;
+    glm::mat4 nowTransform{};
     std::vector<glm::mat4> transformStack{};
     glm::vec4 currentFill = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
