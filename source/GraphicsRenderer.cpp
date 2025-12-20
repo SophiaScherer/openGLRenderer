@@ -203,7 +203,7 @@ namespace gr
 
   void GraphicsRenderer::fill(float r, float g, float b, float a)
   {
-    currentFill = glm::vec4(r, g, b, a);
+    currentFill = glm::vec4(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
   }
 
   void GraphicsRenderer::cleanUp() const

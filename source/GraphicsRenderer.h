@@ -42,7 +42,7 @@ namespace gr
     void fill(float r,
               float g,
               float b,
-              float a = 1.0f);
+              float a = 255.0f);
 
   private:
     GLFWwindow* window;
