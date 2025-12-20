@@ -10,10 +10,11 @@ namespace gr
 {
 
   class Shader;
+
   class GraphicsRenderer
   {
   public:
-    explicit GraphicsRenderer(int width = 640, int height = 480, std::string  = "Window!");
+    explicit GraphicsRenderer(int width = 640, int height = 480, std::string = "Window!");
 
     ~GraphicsRenderer();
 
