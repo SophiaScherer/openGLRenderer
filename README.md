@@ -41,7 +41,7 @@ After building, the executable will be in the `build` directory:
 
 ```
 openGLRenderer/
-├── source/           # Source files (.cpp, .h)
+├── source/           # Source files
 ├── external/         # Third-party dependencies
 ├── tests/            # Unit tests
 └── CMakeLists.txt    # Build configuration
