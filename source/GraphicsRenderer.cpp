@@ -81,12 +81,14 @@ namespace gr
   void GraphicsRenderer::clear()
   {
     glClearColor(0.1f, 0.2f, 0.2f, 1.0f);
+
     glClear(GL_COLOR_BUFFER_BIT);
   }
 
   void GraphicsRenderer::present() const
   {
     glfwSwapBuffers(m_window);
+    
     glfwPollEvents();
   }
 
