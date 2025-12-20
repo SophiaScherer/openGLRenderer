@@ -1,25 +1,43 @@
 #include <source/GraphicsRenderer.h>
 
+constexpr float WIDTH = 800;
+constexpr float HEIGHT = 600;
+
+void doRendering(gr::GraphicsRenderer& renderer);
+
 int main()
 {
-  const int width = 800;
-  const int height = 600;
-  const auto renderer = gr::GraphicsRenderer(width, height, "hello");
+  auto renderer = gr::GraphicsRenderer(WIDTH, HEIGHT, "Window!!");
 
   while (renderer.isAlive())
   {
-    renderer.clear();
-
-    renderer.rectangle(300.0f, 200.0f, 100.0f, 100.0f, 0.0f, 0.0f, 1.0f);
-    renderer.rectangle(400.0f, 300.0f, 100.0f, 100.0f, 1.0f, 0.0f, 0.0f);
-
-    renderer.triangle(300., 200., 400., 200., 350., 100., 0.0, 1.0, 0.0);
-    renderer.triangle(400., 400., 500., 400., 450., 500., 1.0, 0.0, 1.0);
-
-    renderer.ellipse(350., 350., 50., 50., 0.0, 1.0, 1.0);
-
-    renderer.present();
+    doRendering(renderer);
   }
+}
 
-  return 0;
+void doRendering(gr::GraphicsRenderer& renderer)
+{
+  gr::GraphicsRenderer::clear();
+
+  renderer.fill(255, 0, 255);
+  renderer.pushMatrix();
+  renderer.translate(WIDTH / 2.0f, HEIGHT / 2.0f);
+  renderer.rotate(45);
+  renderer.rectangle(0, 0, 50, 50);
+  renderer.popMatrix();
+
+  renderer.fill(255, 255, 0);
+  renderer.pushMatrix();
+  renderer.translate(WIDTH / 3.0f, HEIGHT / 3.0f);
+  renderer.triangle(0, 0, 50, 0, 50, 50);
+  renderer.popMatrix();
+
+  renderer.fill(0, 255, 255);
+  renderer.pushMatrix();
+  renderer.translate(WIDTH / 4.0f, HEIGHT / 4.0f);
+  renderer.scale(10, 10);
+  renderer.ellipse(0, 0, 10, 10);
+  renderer.popMatrix();
+
+  renderer.present();
 }

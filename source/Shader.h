@@ -17,17 +17,18 @@ namespace gr
     void use() const;
 
     void setUniform(const std::string& name, float r, float g, float b) const;
-    void setUniform(const std::string& name, const glm::mat4& mat) const;
+    void setUniform(const std::string& name, const glm::mat4& matrix) const;
     void setUniform(const std::string& name, float x, float y) const;
 
   private:
-    unsigned int ID;
+    unsigned int m_ID;
 
     [[nodiscard]] static std::string readShaderFile(const std::string& filePath) ;
 
     static GLuint loadVertexShader(const char* shaderCode) ;
     static GLuint loadFragmentShader(const char* shaderCode) ;
   };
+
 }
 
 #endif //SHADER_H
