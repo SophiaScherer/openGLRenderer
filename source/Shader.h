@@ -21,7 +21,7 @@ namespace gr
     void setUniform(const std::string& name, float x, float y) const;
 
   private:
-    unsigned int ID;
+    unsigned int m_ID;
 
     [[nodiscard]] static std::string readShaderFile(const std::string& filePath) ;
 

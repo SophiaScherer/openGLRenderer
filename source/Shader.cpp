@@ -16,16 +16,16 @@ namespace gr
 
     int success;
 
-    ID = glCreateProgram();
-    glAttachShader(ID, vertex);
-    glAttachShader(ID, fragment);
-    glLinkProgram(ID);
+    m_ID = glCreateProgram();
+    glAttachShader(m_ID, vertex);
+    glAttachShader(m_ID, fragment);
+    glLinkProgram(m_ID);
 
-    glGetProgramiv(ID, GL_LINK_STATUS, &success);
+    glGetProgramiv(m_ID, GL_LINK_STATUS, &success);
     if (!success)
     {
       char infoLog[512];
-      glGetProgramInfoLog(ID, 512, nullptr, infoLog);
+      glGetProgramInfoLog(m_ID, 512, nullptr, infoLog);
       std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
     }
 
@@ -35,27 +35,27 @@ namespace gr
 
   Shader::~Shader()
   {
-    glDeleteProgram(ID);
+    glDeleteProgram(m_ID);
   }
 
   void Shader::use() const
   {
-    glUseProgram(ID);
+    glUseProgram(m_ID);
   }
 
   void Shader::setUniform(const std::string& name, float r, float g, float b) const
   {
-    glUniform3f(glGetUniformLocation(ID, name.c_str()), r, g, b);
+    glUniform3f(glGetUniformLocation(m_ID, name.c_str()), r, g, b);
   }
 
   void Shader::setUniform(const std::string& name, const glm::mat4& mat) const
   {
-    glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+    glUniformMatrix4fv(glGetUniformLocation(m_ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
   }
 
   void Shader::setUniform(const std::string& name, float x, float y) const
   {
-    glUniform2f(glGetUniformLocation(ID, name.c_str()), x, y);
+    glUniform2f(glGetUniformLocation(m_ID, name.c_str()), x, y);
   }
 
   std::string Shader::readShaderFile(const std::string& filePath)

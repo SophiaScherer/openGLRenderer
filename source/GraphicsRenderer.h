@@ -8,7 +8,7 @@
 
 namespace gr
 {
-  
+
   class Shader;
   class GraphicsRenderer
   {
@@ -46,21 +46,21 @@ namespace gr
               float a = 255.0f);
 
   private:
-    GLFWwindow* window;
+    GLFWwindow* m_window;
 
-    int width;
-    int height;
-    std::string title;
+    int m_width;
+    int m_height;
+    std::string m_title;
 
-    std::unique_ptr<Shader> shader;
-    std::unique_ptr<Shader> ellipseShader;
-    unsigned int VAO{};
-    unsigned int VBO{};
+    std::unique_ptr<Shader> m_shader;
+    std::unique_ptr<Shader> m_ellipseShader;
+    unsigned int m_VAO{};
+    unsigned int m_VBO{};
 
-    glm::mat4 projection{};
-    glm::mat4 nowTransform{};
-    std::vector<glm::mat4> transformStack{};
-    glm::vec4 currentFill = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    glm::mat4 m_projection{};
+    glm::mat4 m_nowTransform{};
+    std::vector<glm::mat4> m_transformStack{};
+    glm::vec4 m_currentFill = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
     void initWindow();
     void initOpenGL();
