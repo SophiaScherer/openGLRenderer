@@ -12,7 +12,7 @@ namespace gr
     : m_width(width), m_height(height), m_title(std::move(title))
   {
     initWindow();
-    
+
     initOpenGL();
 
     m_nowTransform = glm::mat4(1.0f);
@@ -45,7 +45,7 @@ namespace gr
 
     glfwMakeContextCurrent(m_window);
 
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)))
     {
       throw std::runtime_error("Failed to initialize GLAD");
     }
