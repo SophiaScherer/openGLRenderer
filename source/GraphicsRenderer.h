@@ -8,6 +8,7 @@
 
 namespace gr
 {
+  
   class Shader;
   class GraphicsRenderer
   {

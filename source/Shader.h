@@ -28,6 +28,7 @@ namespace gr
     static GLuint loadVertexShader(const char* shaderCode) ;
     static GLuint loadFragmentShader(const char* shaderCode) ;
   };
+
 }
 
 #endif //SHADER_H
