@@ -14,10 +14,15 @@ namespace gr
   {
   public:
     explicit GraphicsRenderer(int width = 640, int height = 480, std::string  = "Window!");
+
     ~GraphicsRenderer();
+
     [[nodiscard]] bool isAlive() const;
-    static void clear() ;
+
+    static void clear();
+
     void present() const;
+
     void rectangle(float x,
                    float y,
                    float width,
@@ -40,6 +45,7 @@ namespace gr
     void scale(float x, float y);
     void pushTransformation();
     void popTransformation();
+
     void fill(float r,
               float g,
               float b,
@@ -54,16 +60,21 @@ namespace gr
 
     std::unique_ptr<Shader> m_shader;
     std::unique_ptr<Shader> m_ellipseShader;
+
     unsigned int m_VAO{};
     unsigned int m_VBO{};
 
     glm::mat4 m_projection{};
+
     glm::mat4 m_nowTransform{};
     std::vector<glm::mat4> m_transformStack{};
+
     glm::vec4 m_currentFill = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
     void initWindow();
+
     void initOpenGL();
+
     void cleanUp() const;
   };
 
