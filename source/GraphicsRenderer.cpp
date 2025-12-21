@@ -16,6 +16,9 @@ namespace gr
 
     initOpenGL();
 
+    m_startTime = glfwGetTime();
+    m_time = 0.0f;
+
     m_nowTransform = glm::mat4(1.0f);
     m_currentFill = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
   }
@@ -207,4 +210,17 @@ namespace gr
     m_currentFill = glm::vec4(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
   }
 
+  void GraphicsRenderer::updateTime()
+  {
+    double currentTime = glfwGetTime();
+    double elapsedTime = currentTime - m_startTime;
+
+    constexpr double MS_PER_CYCLE = 1000.0;
+    m_time = (float)(fmod(elapsedTime * 1000.0, MS_PER_CYCLE) / MS_PER_CYCLE);
+  }
+
+  float GraphicsRenderer::getTime() const
+  {
+    return m_time;
+  }
 }

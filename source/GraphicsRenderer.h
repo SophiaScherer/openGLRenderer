@@ -52,6 +52,9 @@ namespace gr
               float b,
               float a = 255.0f);
 
+    void updateTime();
+    float getTime() const;
+
   private:
     GLFWwindow* m_window = nullptr;
 
@@ -71,6 +74,9 @@ namespace gr
     std::vector<glm::mat4> m_transformStack{};
 
     glm::vec4 m_currentFill = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+
+    float m_time = 0.0f;
+    float m_startTime = 0.0f;
 
     void initWindow();
 
