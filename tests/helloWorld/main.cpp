@@ -1,4 +1,5 @@
 #include <source/GraphicsRenderer.h>
+#include <iostream>
 
 constexpr float WIDTH = 800;
 constexpr float HEIGHT = 600;
@@ -19,15 +20,17 @@ void doRendering(gr::GraphicsRenderer& renderer)
 {
   gr::GraphicsRenderer::clear();
 
-  float dt = renderer.getDeltaTime();
-
   static float elapsedTime = 0.0f;
-  elapsedTime += dt * 1000.0f;
+
+  float dt = renderer.getDeltaTime();
+  elapsedTime += dt * 10.0f;
+
+  std::cout << "elapsedTime: " << elapsedTime << std::endl;
 
   renderer.fill(255, 0, 255);
   renderer.pushMatrix();
   renderer.translate(WIDTH / 2.0f, HEIGHT / 2.0f);
-  renderer.rotate(45 * elapsedTime);
+  renderer.rotate(45.0 * elapsedTime);
   renderer.rectangle(0, 0, 50, 50);
   renderer.popMatrix();
 

@@ -10,7 +10,8 @@ namespace gr
 {
 
   GraphicsRenderer::GraphicsRenderer(const int width, const int height, std::string title)
-    : m_width(width), m_height(height), m_title(std::move(title)), m_startTime(std::chrono::steady_clock::now())
+    : m_width(width), m_height(height), m_title(std::move(title)), m_startTime(std::chrono::steady_clock::now()),
+      m_previousTime(std::chrono::steady_clock::now())
   {
     initWindow();
 
@@ -209,8 +210,8 @@ namespace gr
   void GraphicsRenderer::updateDeltaTime()
   {
     auto currentTime = std::chrono::steady_clock::now();
-    m_deltaTime = std::chrono::duration<float>(currentTime - previousTime).count();
-    previousTime = currentTime;
+    m_deltaTime = std::chrono::duration<float>(currentTime - m_previousTime).count();
+    m_previousTime = currentTime;
   }
 
   float GraphicsRenderer::getDeltaTime() const

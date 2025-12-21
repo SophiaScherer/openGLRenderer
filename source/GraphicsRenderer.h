@@ -76,7 +76,7 @@ namespace gr
     glm::vec4 m_currentFill = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
     std::chrono::steady_clock::time_point m_startTime;
-    std::chrono::time_point<std::chrono::steady_clock> previousTime;
+    std::chrono::time_point<std::chrono::steady_clock> m_previousTime;
     float m_deltaTime = 0.0f;
 
     void updateDeltaTime();
