@@ -22,7 +22,7 @@ void doRendering(gr::GraphicsRenderer& renderer)
   float dt = renderer.getDeltaTime();
 
   static float elapsedTime = 0.0f;
-  elapsedTime += dt;
+  elapsedTime += dt * 1000.0f;
 
   renderer.fill(255, 0, 255);
   renderer.pushMatrix();

@@ -211,7 +211,6 @@ namespace gr
     auto currentTime = std::chrono::steady_clock::now();
     m_deltaTime = std::chrono::duration<float>(currentTime - previousTime).count();
     previousTime = currentTime;
-
   }
 
   float GraphicsRenderer::getDeltaTime() const
