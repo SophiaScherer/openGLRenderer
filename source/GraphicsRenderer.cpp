@@ -10,17 +10,11 @@ namespace gr
 {
 
   GraphicsRenderer::GraphicsRenderer(const int width, const int height, std::string title)
-    : m_width(width), m_height(height), m_title(std::move(title))
+    : m_width(width), m_height(height), m_title(std::move(title)), m_startTime(std::chrono::steady_clock::now())
   {
     initWindow();
 
     initOpenGL();
-
-    m_startTime = glfwGetTime();
-    m_time = 0.0f;
-
-    m_nowTransform = glm::mat4(1.0f);
-    m_currentFill = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
   }
 
   GraphicsRenderer::~GraphicsRenderer()
@@ -92,11 +86,13 @@ namespace gr
     glClear(GL_COLOR_BUFFER_BIT);
   }
 
-  void GraphicsRenderer::present() const
+  void GraphicsRenderer::present()
   {
     glfwSwapBuffers(m_window);
 
     glfwPollEvents();
+
+    updateDeltaTime();
   }
 
   void GraphicsRenderer::rectangle(float x, float y, float width, float height) const
@@ -210,17 +206,16 @@ namespace gr
     m_currentFill = glm::vec4(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
   }
 
-  void GraphicsRenderer::updateTime()
+  void GraphicsRenderer::updateDeltaTime()
   {
-    double currentTime = glfwGetTime();
-    double elapsedTime = currentTime - m_startTime;
+    auto currentTime = std::chrono::steady_clock::now();
+    m_deltaTime = std::chrono::duration<float>(currentTime - previousTime).count();
+    previousTime = currentTime;
 
-    constexpr double MS_PER_CYCLE = 1000.0;
-    m_time = (float)(fmod(elapsedTime * 1000.0, MS_PER_CYCLE) / MS_PER_CYCLE);
   }
 
-  float GraphicsRenderer::getTime() const
+  float GraphicsRenderer::getDeltaTime() const
   {
-    return m_time;
+    return m_deltaTime;
   }
 }

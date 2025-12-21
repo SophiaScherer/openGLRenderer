@@ -19,13 +19,15 @@ void doRendering(gr::GraphicsRenderer& renderer)
 {
   gr::GraphicsRenderer::clear();
 
-  renderer.updateTime();
-  float Time = renderer.getTime();
+  float dt = renderer.getDeltaTime();
+
+  static float elapsedTime = 0.0f;
+  elapsedTime += dt;
 
   renderer.fill(255, 0, 255);
   renderer.pushMatrix();
   renderer.translate(WIDTH / 2.0f, HEIGHT / 2.0f);
-  renderer.rotate(45 * Time);
+  renderer.rotate(45 * elapsedTime);
   renderer.rectangle(0, 0, 50, 50);
   renderer.popMatrix();
 

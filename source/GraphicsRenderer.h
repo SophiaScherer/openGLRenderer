@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include <memory>
 #include <string>
+#include <bits/chrono.h>
 
 namespace gr
 {
@@ -22,7 +23,7 @@ namespace gr
 
     static void clear();
 
-    void present() const;
+    void present();
 
     void rectangle(float x,
                    float y,
@@ -52,8 +53,7 @@ namespace gr
               float b,
               float a = 255.0f);
 
-    void updateTime();
-    float getTime() const;
+    [[nodiscard]] float getDeltaTime() const;
 
   private:
     GLFWwindow* m_window = nullptr;
@@ -70,13 +70,16 @@ namespace gr
 
     glm::mat4 m_projection{};
 
-    glm::mat4 m_nowTransform{};
+    glm::mat4 m_nowTransform = glm::mat4(1.0f);
     std::vector<glm::mat4> m_transformStack{};
 
     glm::vec4 m_currentFill = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
-    float m_time = 0.0f;
-    float m_startTime = 0.0f;
+    std::chrono::steady_clock::time_point m_startTime;
+    std::chrono::time_point<std::chrono::steady_clock> previousTime;
+    float m_deltaTime = 0.0f;
+
+    void updateDeltaTime();
 
     void initWindow();
 
