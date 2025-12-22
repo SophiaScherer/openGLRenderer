@@ -53,23 +53,27 @@ namespace gr
               float a = 255.0f);
 
   private:
+    // Window
     GLFWwindow* m_window = nullptr;
 
     int m_width;
     int m_height;
     std::string m_title;
 
+    // shaders
     std::unique_ptr<Shader> m_shader;
     std::unique_ptr<Shader> m_ellipseShader;
 
+    // vertex objects
     unsigned int m_VAO{};
     unsigned int m_VBO{};
 
+    // world coordinate projection
     glm::mat4 m_projection{};
 
+    // shape drawing config
     glm::mat4 m_nowTransform{};
     std::vector<glm::mat4> m_transformStack{};
-
     glm::vec4 m_currentFill = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
     void initWindow();
