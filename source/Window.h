@@ -1,0 +1,24 @@
+#ifndef WINDOW_H
+#define WINDOW_H
+
+#include <string>
+#include <GLFW/glfw3.h>
+
+namespace gr {
+
+  class Window {
+  public:
+    explicit Window(int width = 640, int height = 480, std::string title = "Window!");
+    ~Window();
+
+  private:
+    GLFWwindow* m_window = nullptr;
+    int m_width;
+    int m_height;
+    std::string m_title;
+  };
+
+}
+
+
+#endif //WINDOW_H
