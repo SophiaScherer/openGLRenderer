@@ -32,6 +32,16 @@ namespace gr {
     glfwSwapBuffers(m_window);
   }
 
+  int Window::getWidth() const
+  {
+    return m_width;
+  }
+
+  int Window::getHeight() const
+  {
+    return m_height;
+  }
+
   void Window::initGLFW()
   {
     if (!glfwInit())

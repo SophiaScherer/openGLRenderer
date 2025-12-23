@@ -15,6 +15,9 @@ namespace gr {
     void pollEvents() const;
     void swapBuffers() const;
 
+    int getWidth() const;
+    int getHeight() const;
+
   private:
     GLFWwindow* m_window = nullptr;
     int m_width;

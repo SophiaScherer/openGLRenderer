@@ -32,7 +32,7 @@ namespace gr
     m_shader = std::make_unique<Shader>("shaders/shape.vert", "shaders/shape.frag");
     m_ellipseShader = std::make_unique<Shader>("shaders/ellipse.vert", "shaders/ellipse.frag");
 
-    m_projection = glm::ortho(0.0f, static_cast<float>(m_width), static_cast<float>(m_height), 0.0f, -1.0f, 1.0f);
+    m_projection = glm::ortho(0.0f, static_cast<float>(m_window->getWidth()), static_cast<float>(m_window->getHeight()), 0.0f, -1.0f, 1.0f);
 
     glGenVertexArrays(1, &m_VAO);
     glGenBuffers(1, &m_VBO);
