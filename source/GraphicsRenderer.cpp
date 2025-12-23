@@ -1,7 +1,6 @@
 #include <glad/glad.h>
 #include "GraphicsRenderer.h"
 #include "Shader.h"
-#include <stdexcept>
 #include <utility>
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/gtc/matrix_transform.hpp>

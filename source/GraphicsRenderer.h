@@ -56,10 +56,6 @@ namespace gr
     // Window
     std::unique_ptr<Window> m_window;
 
-    int m_width;
-    int m_height;
-    std::string m_title;
-
     // shaders
     std::unique_ptr<Shader> m_shader;
     std::unique_ptr<Shader> m_ellipseShader;

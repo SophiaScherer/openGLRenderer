@@ -8,15 +8,15 @@ namespace gr {
 
   class Window {
   public:
-    explicit Window(int width = 640, int height = 480, std::string title = "Window!");
+    explicit Window(int width = 640, int height = 480, std::string  title = "Window!");
     ~Window();
 
-    bool isAlive() const;
+    [[nodiscard]] bool isAlive() const;
     void pollEvents() const;
     void swapBuffers() const;
 
-    int getWidth() const;
-    int getHeight() const;
+    [[nodiscard]] int getWidth() const;
+    [[nodiscard]] int getHeight() const;
 
   private:
     GLFWwindow* m_window = nullptr;
@@ -26,7 +26,7 @@ namespace gr {
 
     void initGLFW();
     void createWindow();
-    void initGLAD();
+    void initGLAD() const;
   };
 
 }

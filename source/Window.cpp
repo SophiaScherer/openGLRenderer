@@ -1,11 +1,12 @@
 #include <glad/glad.h>
 #include "Window.h"
 #include <iostream>
+#include <utility>
 
 namespace gr {
 
-  Window::Window(const int width, const int height, const std::string title)
-  : m_width(width), m_height(height), m_title(title)
+  Window::Window(const int width, const int height, std::string title)
+  : m_width(width), m_height(height), m_title(std::move(title))
   {
     initGLFW();
     createWindow();
@@ -67,7 +68,7 @@ namespace gr {
     glfwMakeContextCurrent(m_window);
   }
 
-  void Window::initGLAD()
+  void Window::initGLAD() const
   {
     if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)))
     {
