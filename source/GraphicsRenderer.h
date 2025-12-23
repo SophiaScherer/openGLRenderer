@@ -1,6 +1,7 @@
 #ifndef GRAPHICSRENDERER_H
 #define GRAPHICSRENDERER_H
 
+#include "ShaderManager.h"
 #include "Window.h"
 #include <glm/glm.hpp>
 #include <memory>
@@ -57,8 +58,7 @@ namespace gr
     std::unique_ptr<Window> m_window;
 
     // shaders
-    std::unique_ptr<Shader> m_shader;
-    std::unique_ptr<Shader> m_ellipseShader;
+    std::unique_ptr<ShaderManager> m_shaderManager;
 
     // vertex objects
     unsigned int m_VAO{};
@@ -73,6 +73,8 @@ namespace gr
     glm::vec4 m_currentFill = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
     void initOpenGL();
+
+    void setShadersForRendering(Shader* shader) const;
   };
 
 }

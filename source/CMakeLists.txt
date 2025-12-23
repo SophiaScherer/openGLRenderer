@@ -9,6 +9,7 @@ add_library(${PROJECT_NAME}
     GraphicsRenderer.cpp
     Shader.cpp
     Window.cpp
+    ShaderManager.cpp
 )
 
 # GLFW
