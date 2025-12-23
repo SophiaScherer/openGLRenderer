@@ -1,11 +1,10 @@
 #ifndef SHADERMANAGER_H
 #define SHADERMANAGER_H
 
+#include "Shader.h"
 #include <string>
 #include <unordered_map>
 #include <memory>
-
-#include "Shader.h"
 
 namespace gr
 {

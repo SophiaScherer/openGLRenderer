@@ -12,6 +12,8 @@ namespace gr
   {
     m_window = std::make_unique<Window>(width, height, std::move(title));
 
+    m_shaderManager = std::make_unique<ShaderManager>();
+
     initOpenGL();
 
     m_nowTransform = glm::mat4(1.0f);
@@ -28,9 +30,6 @@ namespace gr
 
   void GraphicsRenderer::initOpenGL()
   {
-    m_shader = std::make_unique<Shader>("shaders/shape.vert", "shaders/shape.frag");
-    m_ellipseShader = std::make_unique<Shader>("shaders/ellipse.vert", "shaders/ellipse.frag");
-
     m_projection = glm::ortho(0.0f, static_cast<float>(m_window->getWidth()), static_cast<float>(m_window->getHeight()), 0.0f, -1.0f, 1.0f);
 
     glGenVertexArrays(1, &m_VAO);
@@ -73,11 +72,12 @@ namespace gr
       x + width, y + height
     };
 
-    m_shader->use();
+    Shader* shader = m_shaderManager->getShader("polygon");
 
-    m_shader->setUniform("color", m_currentFill.r, m_currentFill.g, m_currentFill.b);
-    m_shader->setUniform("projection", m_projection);
-    m_shader->setUniform("transform", m_nowTransform);
+    shader->use();
+    shader->setUniform("color", m_currentFill.r, m_currentFill.g, m_currentFill.b);
+    shader->setUniform("projection", m_projection);
+    shader->setUniform("transform", m_nowTransform);
 
     glBindVertexArray(m_VAO);
     glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
@@ -96,10 +96,12 @@ namespace gr
       x3, y3
     };
 
-    m_shader->use();
-    m_shader->setUniform("color", m_currentFill.r, m_currentFill.g, m_currentFill.b);
-    m_shader->setUniform("projection", m_projection);
-    m_shader->setUniform("transform", m_nowTransform);
+    Shader* shader = m_shaderManager->getShader("polygon");
+
+    shader->use();
+    shader->setUniform("color", m_currentFill.r, m_currentFill.g, m_currentFill.b);
+    shader->setUniform("projection", m_projection);
+    shader->setUniform("transform", m_nowTransform);
 
     glBindVertexArray(m_VAO);
     glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
@@ -122,13 +124,15 @@ namespace gr
       x + width, y + height
     };
 
-    m_ellipseShader->use();
+    Shader* shader = m_shaderManager->getShader("ellipse");
 
-    m_ellipseShader->setUniform("color", m_currentFill.r, m_currentFill.g, m_currentFill.b);
-    m_ellipseShader->setUniform("projection", m_projection);
-    m_ellipseShader->setUniform("center", cx, cy);
-    m_ellipseShader->setUniform("rad", width / 2.0f, height / 2.0f);
-    m_ellipseShader->setUniform("transform", m_nowTransform);
+    shader->use();
+
+    shader->setUniform("color", m_currentFill.r, m_currentFill.g, m_currentFill.b);
+    shader->setUniform("projection", m_projection);
+    shader->setUniform("center", cx, cy);
+    shader->setUniform("rad", width / 2.0f, height / 2.0f);
+    shader->setUniform("transform", m_nowTransform);
 
     glBindVertexArray(m_VAO);
     glBindBuffer(GL_ARRAY_BUFFER, m_VBO);

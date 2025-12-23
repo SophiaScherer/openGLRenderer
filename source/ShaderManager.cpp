@@ -5,8 +5,8 @@ namespace gr
 
   ShaderManager::ShaderManager()
   {
-    loadShaders("polygonShader", "shaders/polygon.vert", "shaders/polygon.frag");
-    loadShaders("ellipseShader", "shaders/ellipse.vert", "shaders/ellipse.frag");
+    loadShaders("polygon", "shaders/shape.vert", "shaders/shape.frag");
+    loadShaders("ellipse", "shaders/ellipse.vert", "shaders/ellipse.frag");
   }
 
   void ShaderManager::loadShaders(const std::string& name, const char* vertexPath, const char* fragmentPath)
@@ -18,4 +18,5 @@ namespace gr
   {
     return m_shaders.at(name).get();
   }
+
 }
