@@ -11,6 +11,10 @@ namespace gr {
     explicit Window(int width = 640, int height = 480, std::string title = "Window!");
     ~Window();
 
+    bool isAlive() const;
+    void pollEvents() const;
+    void swapBuffers() const;
+
   private:
     GLFWwindow* m_window = nullptr;
     int m_width;

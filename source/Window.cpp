@@ -17,6 +17,21 @@ namespace gr {
     glfwTerminate();
   }
 
+  bool Window::isAlive() const
+  {
+    return !glfwWindowShouldClose(m_window);
+  }
+
+  void Window::pollEvents() const
+  {
+    glfwPollEvents();
+  }
+
+  void Window::swapBuffers() const
+  {
+    glfwSwapBuffers(m_window);
+  }
+
   void Window::initGLFW()
   {
     if (!glfwInit())
