@@ -7,7 +7,9 @@ namespace gr {
   Window::Window(const int width, const int height, const std::string title)
   : m_width(width), m_height(height), m_title(title)
   {
-    initWindow();
+    initGLFW();
+    createWindow();
+    initGLAD();
   }
 
   Window::~Window()
@@ -15,7 +17,7 @@ namespace gr {
     glfwTerminate();
   }
 
-  void Window::initWindow()
+  void Window::initGLFW()
   {
     if (!glfwInit())
     {
@@ -25,7 +27,10 @@ namespace gr {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  }
 
+  void Window::createWindow()
+  {
     m_window = glfwCreateWindow(m_width, m_height, m_title.c_str(), nullptr, nullptr);
 
     if (!m_window)
@@ -35,7 +40,10 @@ namespace gr {
     }
 
     glfwMakeContextCurrent(m_window);
+  }
 
+  void Window::initGLAD()
+  {
     if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)))
     {
       throw std::runtime_error("Failed to initialize GLAD");
