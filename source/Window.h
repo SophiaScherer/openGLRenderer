@@ -16,6 +16,8 @@ namespace gr {
     int m_width;
     int m_height;
     std::string m_title;
+
+    void initWindow();
   };
 
 }
