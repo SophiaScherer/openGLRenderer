@@ -10,6 +10,7 @@ add_library(${PROJECT_NAME}
     Shader.cpp
     Window.cpp
     ShaderManager.cpp
+    ShapeDrawer.cpp
 )
 
 # GLFW
