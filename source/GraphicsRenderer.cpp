@@ -10,9 +10,8 @@ namespace gr
 {
 
   GraphicsRenderer::GraphicsRenderer(const int width, const int height, std::string title)
-    : m_width(width), m_height(height), m_title(std::move(title))
   {
-    initWindow();
+    m_window = std::make_unique<Window>(width, height, std::move(title));
 
     initOpenGL();
 
@@ -26,35 +25,6 @@ namespace gr
     glDeleteBuffers(1, &m_VBO);
 
     glfwTerminate();
-  }
-
-  void GraphicsRenderer::initWindow()
-  {
-    if (!glfwInit())
-    {
-      throw std::runtime_error("Failed to initialize GLFW");
-    }
-
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    m_window = glfwCreateWindow(m_width, m_height, m_title.c_str(), nullptr, nullptr);
-
-    if (!m_window)
-    {
-      glfwTerminate();
-      throw std::runtime_error("Failed to create GLFW window");
-    }
-
-    glfwMakeContextCurrent(m_window);
-
-    if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)))
-    {
-      throw std::runtime_error("Failed to initialize GLAD");
-    }
-
-    glViewport(0, 0, m_width, m_height);
   }
 
   void GraphicsRenderer::initOpenGL()
@@ -79,7 +49,7 @@ namespace gr
 
   bool GraphicsRenderer::isAlive() const
   {
-    return !glfwWindowShouldClose(m_window);
+    return m_window->isAlive();
   }
 
   void GraphicsRenderer::clear()
@@ -91,9 +61,8 @@ namespace gr
 
   void GraphicsRenderer::present() const
   {
-    glfwSwapBuffers(m_window);
-
-    glfwPollEvents();
+    m_window->swapBuffers();
+    m_window->pollEvents();
   }
 
   void GraphicsRenderer::rectangle(float x, float y, float width, float height) const

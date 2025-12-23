@@ -1,7 +1,7 @@
 #ifndef GRAPHICSRENDERER_H
 #define GRAPHICSRENDERER_H
 
-#include <GLFW/glfw3.h>
+#include "Window.h"
 #include <glm/glm.hpp>
 #include <memory>
 #include <string>
@@ -54,7 +54,7 @@ namespace gr
 
   private:
     // Window
-    GLFWwindow* m_window = nullptr;
+    std::unique_ptr<Window> m_window;
 
     int m_width;
     int m_height;
@@ -75,8 +75,6 @@ namespace gr
     glm::mat4 m_nowTransform{};
     std::vector<glm::mat4> m_transformStack{};
     glm::vec4 m_currentFill = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-
-    void initWindow();
 
     void initOpenGL();
   };
