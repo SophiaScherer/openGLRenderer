@@ -16,6 +16,7 @@ namespace gr
     ~ShaderManager() = default;
 
     void loadShaders(const std::string& name, const char* vertexPath, const char* fragmentPath);
+    Shader* getShader(const std::string& name) const;
 
   private:
     std::unordered_map<std::string, std::unique_ptr<Shader>> m_shaders;

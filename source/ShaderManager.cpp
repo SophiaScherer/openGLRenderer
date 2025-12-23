@@ -13,4 +13,9 @@ namespace gr
   {
     m_shaders[name] = std::make_unique<Shader>(vertexPath, fragmentPath);
   }
+
+  Shader* ShaderManager::getShader(const std::string& name) const
+  {
+    return m_shaders.at(name).get();
+  }
 }
