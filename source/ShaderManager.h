@@ -1,6 +1,12 @@
 #ifndef SHADERMANAGER_H
 #define SHADERMANAGER_H
 
+#include <string>
+#include <unordered_map>
+#include <memory>
+
+#include "Shader.h"
+
 namespace gr
 {
 
@@ -9,7 +15,10 @@ namespace gr
     ShaderManager();
     ~ShaderManager() = default;
 
+    void loadShaders(const std::string& name, const char* vertexPath, const char* fragmentPath);
+
   private:
+    std::unordered_map<std::string, std::unique_ptr<Shader>> m_shaders;
   };
 
 }
