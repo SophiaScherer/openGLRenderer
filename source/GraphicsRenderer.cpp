@@ -63,6 +63,14 @@ namespace gr
     m_window->pollEvents();
   }
 
+  void GraphicsRenderer::setShadersForRendering(Shader* shader) const
+  {
+    shader->use();
+    shader->setUniform("color", m_currentFill.r, m_currentFill.g, m_currentFill.b);
+    shader->setUniform("projection", m_projection);
+    shader->setUniform("transform", m_nowTransform);
+  }
+
   void GraphicsRenderer::rectangle(float x, float y, float width, float height) const
   {
     const float vertices[] = {
@@ -73,11 +81,7 @@ namespace gr
     };
 
     Shader* shader = m_shaderManager->getShader("polygon");
-
-    shader->use();
-    shader->setUniform("color", m_currentFill.r, m_currentFill.g, m_currentFill.b);
-    shader->setUniform("projection", m_projection);
-    shader->setUniform("transform", m_nowTransform);
+    setShadersForRendering(shader);
 
     glBindVertexArray(m_VAO);
     glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
@@ -98,10 +102,7 @@ namespace gr
 
     Shader* shader = m_shaderManager->getShader("polygon");
 
-    shader->use();
-    shader->setUniform("color", m_currentFill.r, m_currentFill.g, m_currentFill.b);
-    shader->setUniform("projection", m_projection);
-    shader->setUniform("transform", m_nowTransform);
+    setShadersForRendering(shader);
 
     glBindVertexArray(m_VAO);
     glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
@@ -126,13 +127,9 @@ namespace gr
 
     Shader* shader = m_shaderManager->getShader("ellipse");
 
-    shader->use();
-
-    shader->setUniform("color", m_currentFill.r, m_currentFill.g, m_currentFill.b);
-    shader->setUniform("projection", m_projection);
+    setShadersForRendering(shader);
     shader->setUniform("center", cx, cy);
     shader->setUniform("rad", width / 2.0f, height / 2.0f);
-    shader->setUniform("transform", m_nowTransform);
 
     glBindVertexArray(m_VAO);
     glBindBuffer(GL_ARRAY_BUFFER, m_VBO);

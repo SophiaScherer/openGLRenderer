@@ -73,6 +73,8 @@ namespace gr
     glm::vec4 m_currentFill = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
     void initOpenGL();
+
+    void setShadersForRendering(Shader* shader) const;
   };
 
 }
