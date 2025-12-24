@@ -9,6 +9,7 @@ namespace gr {
   class ShapeDrawer {
   public:
     explicit ShapeDrawer(GraphicsRenderer* renderer);
+    ~ShapeDrawer() = default;
 
     void rectangle(float x,
                float y,
@@ -29,6 +30,8 @@ namespace gr {
 
   private:
     GraphicsRenderer* m_renderer;
+
+    void setShadersForRendering(ShaderManager* shader);
   };
 
 }
