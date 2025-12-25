@@ -47,6 +47,29 @@ namespace gr {
 
   void ShapeDrawer::ellipse(float cx, float cy, float width, float height) const
   {
+    const float x = cx - width / 2.0f;
+    const float y = cy - height / 2.0f;
+
+    const float vertices[] = {
+      x, y,
+      x + width, y,
+      x, y + height,
+      x + width, y + height
+    };
+
+    setShadersForRendering("ellipse");
+
+    Shader* shader = m_shaderManager->getShader("ellipse");
+    shader->setUniform("center", cx, cy);
+    shader->setUniform("rad", width / 2.0f, height / 2.0f);
+
+    glBindVertexArray(m_renderer->getVAO());
+    glBindBuffer(GL_ARRAY_BUFFER, m_renderer->getVBO());
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
+
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+    glBindVertexArray(0);
   }
 
   void ShapeDrawer::setShadersForRendering(const std::string& shaderName) const
