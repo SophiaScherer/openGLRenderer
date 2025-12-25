@@ -1,6 +1,8 @@
 #ifndef SHAPEDRAWER_H
 #define SHAPEDRAWER_H
 
+#include <string>
+
 namespace gr {
 
   class GraphicsRenderer;
@@ -30,8 +32,9 @@ namespace gr {
 
   private:
     GraphicsRenderer* m_renderer;
+    ShaderManager* m_shaderManager;
 
-    void setShadersForRendering(ShaderManager* shader);
+    void setShadersForRendering(const std::string& shaderName) const;
   };
 
 }
