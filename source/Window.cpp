@@ -23,7 +23,7 @@ namespace gr {
     return !glfwWindowShouldClose(m_window);
   }
 
-  void Window::pollEvents() const
+  void Window::pollEvents()
   {
     glfwPollEvents();
   }

@@ -12,7 +12,7 @@ namespace gr {
     ~Window();
 
     [[nodiscard]] bool isAlive() const;
-    void pollEvents() const;
+    static void pollEvents() ;
     void swapBuffers() const;
 
     [[nodiscard]] int getWidth() const;
@@ -24,7 +24,7 @@ namespace gr {
     int m_height;
     std::string m_title;
 
-    void initGLFW();
+    static void initGLFW();
     void createWindow();
     void initGLAD() const;
   };

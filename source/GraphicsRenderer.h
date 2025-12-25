@@ -3,6 +3,7 @@
 
 #include "ShaderManager.h"
 #include "Window.h"
+#include "ShapeDrawer.h"
 #include <glm/glm.hpp>
 #include <memory>
 #include <string>
@@ -53,12 +54,22 @@ namespace gr
               float b,
               float a = 255.0f);
 
+    [[nodiscard]] ShaderManager* getShaderManager() const;
+    [[nodiscard]] glm::mat4 getProjection() const;
+    [[nodiscard]] glm::mat4 getTransform() const;
+    [[nodiscard]] glm::vec4 getCurrentFill() const;
+    [[nodiscard]] unsigned int getVAO() const;
+    [[nodiscard]] unsigned int getVBO() const;
+
   private:
     // Window
     std::unique_ptr<Window> m_window;
 
     // shaders
     std::unique_ptr<ShaderManager> m_shaderManager;
+
+    // Shape Drawer
+    std::unique_ptr<ShapeDrawer> m_shapeDrawer;
 
     // vertex objects
     unsigned int m_VAO{};

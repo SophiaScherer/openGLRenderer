@@ -1,6 +1,5 @@
 #include <glad/glad.h>
 #include "GraphicsRenderer.h"
-#include "Shader.h"
 #include <utility>
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -15,6 +14,8 @@ namespace gr
     m_shaderManager = std::make_unique<ShaderManager>();
 
     initOpenGL();
+
+    m_shapeDrawer = std::make_unique<ShapeDrawer>(this);
 
     m_nowTransform = glm::mat4(1.0f);
     m_currentFill = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
@@ -60,84 +61,22 @@ namespace gr
   void GraphicsRenderer::present() const
   {
     m_window->swapBuffers();
-    m_window->pollEvents();
-  }
-
-  void GraphicsRenderer::setShadersForRendering(Shader* shader) const
-  {
-    shader->use();
-    shader->setUniform("color", m_currentFill.r, m_currentFill.g, m_currentFill.b);
-    shader->setUniform("projection", m_projection);
-    shader->setUniform("transform", m_nowTransform);
+    gr::Window::pollEvents();
   }
 
   void GraphicsRenderer::rectangle(float x, float y, float width, float height) const
   {
-    const float vertices[] = {
-      x, y,
-      x + width, y,
-      x, y + height,
-      x + width, y + height
-    };
-
-    Shader* shader = m_shaderManager->getShader("polygon");
-    setShadersForRendering(shader);
-
-    glBindVertexArray(m_VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
-
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-    glBindVertexArray(0);
+    m_shapeDrawer->rectangle(x, y, width, height);
   }
 
   void GraphicsRenderer::triangle(float x1, float y1, float x2, float y2, float x3, float y3) const
   {
-    const float vertices[] = {
-      x1, y1,
-      x2, y2,
-      x3, y3
-    };
-
-    Shader* shader = m_shaderManager->getShader("polygon");
-
-    setShadersForRendering(shader);
-
-    glBindVertexArray(m_VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
-
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-
-    glBindVertexArray(0);
+    m_shapeDrawer->triangle(x1, y1, x2, y2, x3, y3);
   }
 
   void GraphicsRenderer::ellipse(float cx, float cy, float width, float height) const
   {
-    const float x = cx - width / 2.0f;
-    const float y = cy - height / 2.0f;
-
-    const float vertices[] = {
-      x, y,
-      x + width, y,
-      x, y + height,
-      x + width, y + height
-    };
-
-    Shader* shader = m_shaderManager->getShader("ellipse");
-
-    setShadersForRendering(shader);
-    shader->setUniform("center", cx, cy);
-    shader->setUniform("rad", width / 2.0f, height / 2.0f);
-
-    glBindVertexArray(m_VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
-
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-    glBindVertexArray(0);
+    m_shapeDrawer->ellipse(cx, cy, width, height);
   }
 
   void GraphicsRenderer::translate(float x, float y)
@@ -176,4 +115,33 @@ namespace gr
     m_currentFill = glm::vec4(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
   }
 
+  ShaderManager* GraphicsRenderer::getShaderManager() const
+  {
+    return m_shaderManager.get();
+  }
+
+  glm::mat4 GraphicsRenderer::getProjection() const
+  {
+    return m_projection;
+  }
+
+  glm::mat4 GraphicsRenderer::getTransform() const
+  {
+    return m_nowTransform;
+  }
+
+  glm::vec4 GraphicsRenderer::getCurrentFill() const
+  {
+    return m_currentFill;
+  }
+
+  unsigned int GraphicsRenderer::getVAO() const
+  {
+    return m_VAO;
+  }
+
+  unsigned int GraphicsRenderer::getVBO() const
+  {
+    return m_VBO;
+  }
 }
