@@ -3,6 +3,7 @@
 
 #include "ShaderManager.h"
 #include "Window.h"
+#include "ShapeDrawer.h"
 #include <glm/glm.hpp>
 #include <memory>
 #include <string>
@@ -66,6 +67,9 @@ namespace gr
 
     // shaders
     std::unique_ptr<ShaderManager> m_shaderManager;
+
+    // Shape Drawer
+    std::unique_ptr<ShapeDrawer> m_shapeDrawer;
 
     // vertex objects
     unsigned int m_VAO{};

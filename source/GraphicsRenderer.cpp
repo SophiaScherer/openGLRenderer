@@ -16,6 +16,8 @@ namespace gr
 
     initOpenGL();
 
+    m_shapeDrawer = std::make_unique<ShapeDrawer>(this);
+
     m_nowTransform = glm::mat4(1.0f);
     m_currentFill = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
   }
@@ -63,81 +65,27 @@ namespace gr
     m_window->pollEvents();
   }
 
-  void GraphicsRenderer::setShadersForRendering(Shader* shader) const
-  {
-    shader->use();
-    shader->setUniform("color", m_currentFill.r, m_currentFill.g, m_currentFill.b);
-    shader->setUniform("projection", m_projection);
-    shader->setUniform("transform", m_nowTransform);
-  }
+  // void GraphicsRenderer::setShadersForRendering(Shader* shader) const
+  // {
+  //   shader->use();
+  //   shader->setUniform("color", m_currentFill.r, m_currentFill.g, m_currentFill.b);
+  //   shader->setUniform("projection", m_projection);
+  //   shader->setUniform("transform", m_nowTransform);
+  // }
 
   void GraphicsRenderer::rectangle(float x, float y, float width, float height) const
   {
-    const float vertices[] = {
-      x, y,
-      x + width, y,
-      x, y + height,
-      x + width, y + height
-    };
-
-    Shader* shader = m_shaderManager->getShader("polygon");
-    setShadersForRendering(shader);
-
-    glBindVertexArray(m_VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
-
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-    glBindVertexArray(0);
+    m_shapeDrawer->rectangle(x, y, width, height);
   }
 
   void GraphicsRenderer::triangle(float x1, float y1, float x2, float y2, float x3, float y3) const
   {
-    const float vertices[] = {
-      x1, y1,
-      x2, y2,
-      x3, y3
-    };
-
-    Shader* shader = m_shaderManager->getShader("polygon");
-
-    setShadersForRendering(shader);
-
-    glBindVertexArray(m_VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
-
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-
-    glBindVertexArray(0);
+    m_shapeDrawer->triangle(x1, y1, x2, y2, x3, y3);
   }
 
   void GraphicsRenderer::ellipse(float cx, float cy, float width, float height) const
   {
-    const float x = cx - width / 2.0f;
-    const float y = cy - height / 2.0f;
-
-    const float vertices[] = {
-      x, y,
-      x + width, y,
-      x, y + height,
-      x + width, y + height
-    };
-
-    Shader* shader = m_shaderManager->getShader("ellipse");
-
-    setShadersForRendering(shader);
-    shader->setUniform("center", cx, cy);
-    shader->setUniform("rad", width / 2.0f, height / 2.0f);
-
-    glBindVertexArray(m_VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
-
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-    glBindVertexArray(0);
+    m_shapeDrawer->ellipse(cx, cy, width, height);
   }
 
   void GraphicsRenderer::translate(float x, float y)

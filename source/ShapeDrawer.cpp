@@ -6,6 +6,18 @@ namespace gr {
   ShapeDrawer::ShapeDrawer(GraphicsRenderer* renderer)
   : m_renderer(renderer), m_shaderManager(renderer->getShaderManager()) {}
 
+  void ShapeDrawer::setShadersForRendering(const std::string& shaderName) const
+  {
+    Shader* shader = m_shaderManager->getShader(shaderName);
+    shader->use();
+
+    shader->setUniform("color", m_renderer->getCurrentFill().r,
+                                        m_renderer->getCurrentFill().g,
+                                        m_renderer->getCurrentFill().b);
+    shader->setUniform("projection", m_renderer->getProjection());
+    shader->setUniform("transform", m_renderer->getTransform());
+  }
+
   void ShapeDrawer::rectangle(float x, float y, float width, float height) const
   {
     const float vertices[] = {
@@ -59,7 +71,7 @@ namespace gr {
 
     setShadersForRendering("ellipse");
 
-    Shader* shader = m_shaderManager->getShader("ellipse");
+    const Shader* shader = m_shaderManager->getShader("ellipse");
     shader->setUniform("center", cx, cy);
     shader->setUniform("rad", width / 2.0f, height / 2.0f);
 
@@ -72,15 +84,4 @@ namespace gr {
     glBindVertexArray(0);
   }
 
-  void ShapeDrawer::setShadersForRendering(const std::string& shaderName) const
-  {
-    Shader* shader = m_shaderManager->getShader(shaderName);
-    shader->use();
-
-    shader->setUniform("color", m_renderer->getCurrentFill().r,
-                                        m_renderer->getCurrentFill().g,
-                                        m_renderer->getCurrentFill().b);
-    shader->setUniform("projection", m_renderer->getProjection());
-    shader->setUniform("transformation", m_renderer->getTransform());
-  }
 }
