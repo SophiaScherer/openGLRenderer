@@ -61,7 +61,7 @@ namespace gr
   void GraphicsRenderer::present() const
   {
     m_window->swapBuffers();
-    m_window->pollEvents();
+    gr::Window::pollEvents();
   }
 
   void GraphicsRenderer::rectangle(float x, float y, float width, float height) const

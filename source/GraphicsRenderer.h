@@ -54,7 +54,7 @@ namespace gr
               float b,
               float a = 255.0f);
 
-    ShaderManager* getShaderManager() const;
+    [[nodiscard]] ShaderManager* getShaderManager() const;
     [[nodiscard]] glm::mat4 getProjection() const;
     [[nodiscard]] glm::mat4 getTransform() const;
     [[nodiscard]] glm::vec4 getCurrentFill() const;
