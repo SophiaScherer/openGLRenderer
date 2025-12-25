@@ -65,14 +65,6 @@ namespace gr
     m_window->pollEvents();
   }
 
-  // void GraphicsRenderer::setShadersForRendering(Shader* shader) const
-  // {
-  //   shader->use();
-  //   shader->setUniform("color", m_currentFill.r, m_currentFill.g, m_currentFill.b);
-  //   shader->setUniform("projection", m_projection);
-  //   shader->setUniform("transform", m_nowTransform);
-  // }
-
   void GraphicsRenderer::rectangle(float x, float y, float width, float height) const
   {
     m_shapeDrawer->rectangle(x, y, width, height);
