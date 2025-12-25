@@ -28,6 +28,21 @@ namespace gr {
 
   void ShapeDrawer::triangle(float x1, float y1, float x2, float y2, float x3, float y3) const
   {
+    const float vertices[] = {
+      x1, y1,
+      x2, y2,
+      x3, y3
+    };
+
+    setShadersForRendering("polygon");
+
+    glBindVertexArray(m_renderer->getVAO());
+    glBindBuffer(GL_ARRAY_BUFFER, m_renderer->getVBO());
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
+
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+
+    glBindVertexArray(0);
   }
 
   void ShapeDrawer::ellipse(float cx, float cy, float width, float height) const
