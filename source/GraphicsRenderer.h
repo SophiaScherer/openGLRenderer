@@ -53,6 +53,13 @@ namespace gr
               float b,
               float a = 255.0f);
 
+    ShaderManager* getShaderManager();
+    [[nodiscard]] glm::mat4 getProjection() const;
+    [[nodiscard]] glm::mat4 getTransform() const;
+    [[nodiscard]] glm::vec4 getCurrentFill() const;
+    [[nodiscard]] unsigned int getVAO() const;
+    [[nodiscard]] unsigned int getVBO() const;
+
   private:
     // Window
     std::unique_ptr<Window> m_window;

@@ -176,4 +176,33 @@ namespace gr
     m_currentFill = glm::vec4(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
   }
 
+  ShaderManager* GraphicsRenderer::getShaderManager()
+  {
+    return m_shaderManager.get();
+  }
+
+  glm::mat4 GraphicsRenderer::getProjection() const
+  {
+    return m_projection;
+  }
+
+  glm::mat4 GraphicsRenderer::getTransform() const
+  {
+    return m_nowTransform;
+  }
+
+  glm::vec4 GraphicsRenderer::getCurrentFill() const
+  {
+    return m_currentFill;
+  }
+
+  unsigned int GraphicsRenderer::getVAO() const
+  {
+    return m_VAO;
+  }
+
+  unsigned int GraphicsRenderer::getVBO() const
+  {
+    return m_VBO;
+  }
 }
