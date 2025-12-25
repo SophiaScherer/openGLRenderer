@@ -1,6 +1,5 @@
 #include <glad/glad.h>
 #include "GraphicsRenderer.h"
-#include "Shader.h"
 #include <utility>
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -116,7 +115,7 @@ namespace gr
     m_currentFill = glm::vec4(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
   }
 
-  ShaderManager* GraphicsRenderer::getShaderManager()
+  ShaderManager* GraphicsRenderer::getShaderManager() const
   {
     return m_shaderManager.get();
   }
