@@ -8,6 +8,22 @@ namespace gr {
 
   void ShapeDrawer::rectangle(float x, float y, float width, float height) const
   {
+    const float vertices[] = {
+      x, y,
+      x + width, y,
+      x, y + height,
+      x + width, y + height
+    };
+
+    setShadersForRendering("polygon");
+
+    glBindVertexArray(m_renderer->getVAO());
+    glBindBuffer(GL_ARRAY_BUFFER, m_renderer->getVBO());
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
+
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+    glBindVertexArray(0);
   }
 
   void ShapeDrawer::triangle(float x1, float y1, float x2, float y2, float x3, float y3) const
